@@ -83,5 +83,13 @@ namespace CoffeeStore.Forms
             this.Hide();
             //MessageBox.Show(CurrentUser.User.FullName);
         }
+
+        private void menuCategory_Click(object sender, EventArgs e)
+        {
+           frmCategory frm = new frmCategory();
+           frm.MdiParent = this;
+            frm.Dock=DockStyle.Fill;
+            frm.Show();
+        }
     }
 }

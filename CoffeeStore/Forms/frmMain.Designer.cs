@@ -34,7 +34,7 @@
             this.danhMụcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuArea = new System.Windows.Forms.ToolStripMenuItem();
             this.menuTable = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuFood = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuCategory = new System.Windows.Forms.ToolStripMenuItem();
             this.bánHàngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gọiMónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.khoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,7 +60,7 @@
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip.Size = new System.Drawing.Size(173, 1055);
+            this.menuStrip.Size = new System.Drawing.Size(175, 1055);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -69,7 +69,7 @@
             this.hệThốngToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuLogout});
             this.hệThốngToolStripMenuItem.Name = "hệThốngToolStripMenuItem";
-            this.hệThốngToolStripMenuItem.Size = new System.Drawing.Size(160, 45);
+            this.hệThốngToolStripMenuItem.Size = new System.Drawing.Size(158, 45);
             this.hệThốngToolStripMenuItem.Text = "Hệ thống";
             this.hệThốngToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -85,9 +85,9 @@
             this.danhMụcToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuArea,
             this.menuTable,
-            this.menuFood});
+            this.menuCategory});
             this.danhMụcToolStripMenuItem.Name = "danhMụcToolStripMenuItem";
-            this.danhMụcToolStripMenuItem.Size = new System.Drawing.Size(160, 45);
+            this.danhMụcToolStripMenuItem.Size = new System.Drawing.Size(158, 45);
             this.danhMụcToolStripMenuItem.Text = "Danh mục";
             this.danhMụcToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -104,18 +104,19 @@
             this.menuTable.Size = new System.Drawing.Size(224, 46);
             this.menuTable.Text = "Bàn";
             // 
-            // menuFood
+            // menuCategory
             // 
-            this.menuFood.Name = "menuFood";
-            this.menuFood.Size = new System.Drawing.Size(224, 46);
-            this.menuFood.Text = "Món";
+            this.menuCategory.Name = "menuCategory";
+            this.menuCategory.Size = new System.Drawing.Size(224, 46);
+            this.menuCategory.Text = "Món";
+            this.menuCategory.Click += new System.EventHandler(this.menuCategory_Click);
             // 
             // bánHàngToolStripMenuItem
             // 
             this.bánHàngToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gọiMónToolStripMenuItem});
             this.bánHàngToolStripMenuItem.Name = "bánHàngToolStripMenuItem";
-            this.bánHàngToolStripMenuItem.Size = new System.Drawing.Size(160, 45);
+            this.bánHàngToolStripMenuItem.Size = new System.Drawing.Size(158, 45);
             this.bánHàngToolStripMenuItem.Text = "Bán hàng";
             this.bánHàngToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -130,7 +131,7 @@
             this.khoToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuWarehouse});
             this.khoToolStripMenuItem.Name = "khoToolStripMenuItem";
-            this.khoToolStripMenuItem.Size = new System.Drawing.Size(160, 45);
+            this.khoToolStripMenuItem.Size = new System.Drawing.Size(158, 45);
             this.khoToolStripMenuItem.Text = "Kho";
             this.khoToolStripMenuItem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -145,7 +146,7 @@
             this.menuManagment.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuAccount});
             this.menuManagment.Name = "menuManagment";
-            this.menuManagment.Size = new System.Drawing.Size(160, 45);
+            this.menuManagment.Size = new System.Drawing.Size(158, 45);
             this.menuManagment.Text = "Quản trị";
             this.menuManagment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -168,7 +169,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(3364, 1055);
+            this.ClientSize = new System.Drawing.Size(1924, 1055);
             this.Controls.Add(this.lblCurrentUser);
             this.Controls.Add(this.menuStrip);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -197,7 +198,7 @@
         private System.Windows.Forms.ToolStripMenuItem menuManagment;
         private System.Windows.Forms.ToolStripMenuItem menuArea;
         private System.Windows.Forms.ToolStripMenuItem menuTable;
-        private System.Windows.Forms.ToolStripMenuItem menuFood;
+        private System.Windows.Forms.ToolStripMenuItem menuCategory;
         private System.Windows.Forms.ToolStripMenuItem gọiMónToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuWarehouse;
         private System.Windows.Forms.ToolStripMenuItem menuAccount;

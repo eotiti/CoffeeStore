@@ -48,16 +48,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BUS\AreaBUS.cs" />
+    <Compile Include="BUS\CategoryBUS.cs" />
+    <Compile Include="BUS\FoodBUS.cs" />
     <Compile Include="BUS\TableBUS.cs" />
     <Compile Include="BUS\UserBUS.cs" />
     <Compile Include="Common\CurrentUser.cs" />
     <Compile Include="DAL\AreaDAL.cs" />
+    <Compile Include="DAL\CategoryDAL.cs" />
     <Compile Include="DAL\DBConnection.cs" />
+    <Compile Include="DAL\FoodDAL.cs" />
     <Compile Include="DAL\TableDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="DTO\AreaDTO.cs" />
+    <Compile Include="DTO\CategoryDTO.cs" />
+    <Compile Include="DTO\FoodDTO.cs" />
     <Compile Include="DTO\TableDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="Forms\frmCategory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmCategory.Designer.cs">
+      <DependentUpon>frmCategory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmArea.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -108,6 +120,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Forms\frmCategory.resx">
+      <DependentUpon>frmCategory.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmArea.resx">
       <DependentUpon>frmArea.cs</DependentUpon>
     </EmbeddedResource>
