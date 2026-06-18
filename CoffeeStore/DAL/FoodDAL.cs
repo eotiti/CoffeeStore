@@ -129,5 +129,18 @@ namespace CoffeeStore.DAL
 
             return rows > 0;
         }
+        public DataTable GetByCategory(int categoryID)
+        {
+            string sql = @"SELECT * FROM Foods
+                                    WHERE CategoryID = @CategoryID
+                                    AND IsActive = 1
+                                    ORDER BY FoodName";
+            SqlConnection conn = GetConnection();
+            SqlDataAdapter da = new SqlDataAdapter(sql, conn);
+            da.SelectCommand.Parameters.AddWithValue("@CategoryID",categoryID);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
+        }
     }
 }

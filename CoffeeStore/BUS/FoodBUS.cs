@@ -32,5 +32,9 @@ namespace CoffeeStore.BUS
         {
             return dal.Update(food);
         }
+        public DataTable GetByCategory(int categoryID)
+        {
+            return dal.GetByCategory(categoryID);
+        }
     }
 }

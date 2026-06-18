@@ -28,7 +28,7 @@ namespace CoffeeStore.Forms
             dgvCategory.Columns["CategoryName"].HeaderText = "Tên danh mục";
 
             dgvCategory.Columns["IsActive"].HeaderText = "Hoạt động";
-            dgvCategory.SelectionMode =    DataGridViewSelectionMode.FullRowSelect;
+            dgvCategory.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
         private void ClearForm()
         {

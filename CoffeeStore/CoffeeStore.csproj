@@ -48,18 +48,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BUS\AreaBUS.cs" />
+    <Compile Include="BUS\BillBUS.cs" />
+    <Compile Include="BUS\BillDetailBUS.cs" />
     <Compile Include="BUS\CategoryBUS.cs" />
     <Compile Include="BUS\FoodBUS.cs" />
     <Compile Include="BUS\TableBUS.cs" />
     <Compile Include="BUS\UserBUS.cs" />
     <Compile Include="Common\CurrentUser.cs" />
     <Compile Include="DAL\AreaDAL.cs" />
+    <Compile Include="DAL\BillDAL.cs" />
+    <Compile Include="DAL\BillDetailDAL.cs" />
     <Compile Include="DAL\CategoryDAL.cs" />
     <Compile Include="DAL\DBConnection.cs" />
     <Compile Include="DAL\FoodDAL.cs" />
     <Compile Include="DAL\TableDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="DTO\AreaDTO.cs" />
+    <Compile Include="DTO\BillDetailDTO.cs" />
+    <Compile Include="DTO\BillDTO.cs" />
     <Compile Include="DTO\CategoryDTO.cs" />
     <Compile Include="DTO\FoodDTO.cs" />
     <Compile Include="DTO\TableDTO.cs" />
@@ -140,6 +146,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmOrder.resx">
+      <DependentUpon>frmOrder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

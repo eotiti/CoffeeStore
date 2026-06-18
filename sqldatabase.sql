@@ -90,7 +90,8 @@ CREATE TABLE Categories
 (
     CategoryID INT IDENTITY(1,1) PRIMARY KEY,
 
-    CategoryName NVARCHAR(100) NOT NULL
+    CategoryName NVARCHAR(100) NOT NULL,
+	IsActive BIT DEFAULT 1
 )
 GO
 INSERT INTO Categories(CategoryName)
@@ -128,6 +129,42 @@ VALUES
 (N'Cafe sữa',1,30000),
 (N'Trà đào',2,35000),
 (N'Nước cam',3,40000)
+GO
+CREATE TABLE Bills
+(
+    BillID INT IDENTITY(1,1) PRIMARY KEY,
+
+    TableID INT NOT NULL,
+
+    UserID INT NOT NULL,
+
+    CreatedDate DATETIME DEFAULT GETDATE(),
+
+    Status INT DEFAULT 0
+)
+GO
+CREATE TABLE BillDetails
+(
+    BillDetailID INT IDENTITY(1,1) PRIMARY KEY,
+
+    BillID INT NOT NULL,
+
+    FoodID INT NOT NULL,
+
+    Quantity INT NOT NULL,
+
+    UnitPrice DECIMAL(18,0) NOT NULL,
+
+    Amount DECIMAL(18,0) NOT NULL,
+
+    CONSTRAINT FK_BillDetails_Bills
+    FOREIGN KEY(BillID)
+    REFERENCES Bills(BillID),
+
+    CONSTRAINT FK_BillDetails_Foods
+    FOREIGN KEY(FoodID)
+    REFERENCES Foods(FoodID)
+)
 GO
 SELECT * FROM Roles
 SELECT * FROM Users
