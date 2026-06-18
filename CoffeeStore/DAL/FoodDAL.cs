@@ -20,7 +20,7 @@ namespace CoffeeStore.DAL
                                     f.Price, 
                                     f.IsActive
                             FROM Foods f
-                            INNER JOIN FoodCategories c
+                            INNER JOIN Categories c
                                 ON f.CategoryID = c.CategoryID
                             ORDER BY c.CategoryName, f.FoodName";
 
@@ -59,10 +59,12 @@ namespace CoffeeStore.DAL
                 food.FoodName = reader["FoodName"].ToString();
 
                 food.CategoryID = Convert.ToInt32(reader["CategoryID"]);
+                food.CategoryName = "";
 
                 food.Price = Convert.ToDecimal(reader["Price"]);
 
                 food.IsActive = Convert.ToBoolean(reader["IsActive"]);
+                
             }
 
             conn.Close();

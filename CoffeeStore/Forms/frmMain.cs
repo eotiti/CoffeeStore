@@ -88,7 +88,16 @@ namespace CoffeeStore.Forms
         {
            frmCategory frm = new frmCategory();
            frm.MdiParent = this;
-            frm.Dock=DockStyle.Fill;
+           frm.Dock=DockStyle.Fill;
+           frm.Show();
+        }
+
+        private void menuFood_Click(object sender, EventArgs e)
+        {
+            frmFood frm = new frmFood();
+            frm.MdiParent= this;
+         
+            frm.Dock = DockStyle.Fill;
             frm.Show();
         }
     }

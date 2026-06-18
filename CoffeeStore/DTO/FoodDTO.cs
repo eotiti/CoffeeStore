@@ -13,6 +13,7 @@ namespace CoffeeStore.DTO
         public string FoodName { get; set; }
 
         public int CategoryID { get; set; }
+        public string CategoryName { get; set; }
 
         public decimal Price { get; set; }
 
