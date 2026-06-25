@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -24,17 +25,21 @@ namespace CoffeeStore.BUS
                 
             return tableDAL.Insert(table);
         }
-        public bool Update(TableDTO table)
+        public bool Update(TableDTO table)//sua ban
         {
             if (string.IsNullOrWhiteSpace(table.TableName))
                 return false;
 
             return tableDAL.Update(table);
         }
-        public TableDTO GetByID(int tableID)
+        public TableDTO GetByID(int tableID)//lay ban theo khu vuc
         {
             return tableDAL.GetByID(tableID);
         }
+        /*public DataTable GetAll() 
+        { 
+            return tableDAL.GetAll();
+        }*/
     }
 
 }

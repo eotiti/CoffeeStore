@@ -40,6 +40,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.flpFood = new System.Windows.Forms.FlowLayoutPanel();
             this.lblSum = new System.Windows.Forms.Label();
+            this.cboArea = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -58,14 +59,14 @@
             // flpTable
             // 
             this.flpTable.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.flpTable.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flpTable.Location = new System.Drawing.Point(3, 30);
+            this.flpTable.Location = new System.Drawing.Point(3, 76);
             this.flpTable.Name = "flpTable";
-            this.flpTable.Size = new System.Drawing.Size(596, 308);
+            this.flpTable.Size = new System.Drawing.Size(596, 262);
             this.flpTable.TabIndex = 0;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cboArea);
             this.groupBox1.Controls.Add(this.flpTable);
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
@@ -146,6 +147,16 @@
             this.lblSum.TabIndex = 7;
             this.lblSum.Text = "Tổng tiền:";
             // 
+            // cboArea
+            // 
+            this.cboArea.FormattingEnabled = true;
+            this.cboArea.Location = new System.Drawing.Point(6, 33);
+            this.cboArea.Name = "cboArea";
+            this.cboArea.Size = new System.Drawing.Size(229, 37);
+            this.cboArea.TabIndex = 0;
+            this.cboArea.Text = "-Select-";
+            this.cboArea.SelectedIndexChanged += new System.EventHandler(this.cboArea_SelectedIndexChanged);
+            // 
             // frmOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -182,5 +193,6 @@
         private System.Windows.Forms.GroupBox groupBox4;
         private System.Windows.Forms.FlowLayoutPanel flpFood;
         private System.Windows.Forms.Label lblSum;
+        private System.Windows.Forms.ComboBox cboArea;
     }
 }

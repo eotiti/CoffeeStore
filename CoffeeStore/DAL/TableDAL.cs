@@ -11,36 +11,41 @@ namespace CoffeeStore.DAL
 {
     public class TableDAL:DBConnection
     {
-        public List<TableDTO> GetAllByAreaID(int areaID)
+        /*public DataTable GetAll()
         {
-            List<TableDTO> list = new List<TableDTO>();
+            string sql = @"SELECT * FROM CafeTables ORDER BY TableName asc";
 
-            string query = @"SELECT * FROM CafeTables WHERE AreaID = @AreaID ORDER BY TableName";
+            DataTable dt = new DataTable();
 
             using (SqlConnection conn = GetConnection())
             {
+                SqlDataAdapter da =new SqlDataAdapter(sql, conn);
+
+                da.Fill(dt);
+            }
+
+            return dt;
+        }*/
+        public List<TableDTO> GetAllByAreaID(int areaID)//lay ban theo khu vuc
+        {
+            List<TableDTO> list = new List<TableDTO>();
+            string query = @"SELECT * FROM CafeTables WHERE AreaID = @AreaID ORDER BY TableName";
+            using (SqlConnection conn = GetConnection())
+            {
                 conn.Open();
-
                 SqlCommand cmd = new SqlCommand(query, conn);
-
                 cmd.Parameters.AddWithValue("@AreaID", areaID);
-
                 SqlDataReader reader = cmd.ExecuteReader();
-
                 while (reader.Read())
                 {
                     TableDTO table = new TableDTO();
-
                     table.TableID = Convert.ToInt32(reader["TableID"]);
                     table.TableName = reader["TableName"].ToString();
                     table.AreaID = Convert.ToInt32(reader["AreaID"]);
                     table.Status = Convert.ToInt32(reader["Status"]);
-                    //table.Description = reader["Description"].ToString();
-
                     list.Add(table);
                 }
             }
-
             return list;
         }
         public bool Insert(TableDTO table)
@@ -68,7 +73,6 @@ namespace CoffeeStore.DAL
                                                 AreaID = @AreaID, 
                                                 Status = @Status
                                             WHERE TableID = @TableID";
-
             using (SqlConnection conn = GetConnection())
             {
                 conn.Open();
@@ -83,7 +87,7 @@ namespace CoffeeStore.DAL
                 return cmd.ExecuteNonQuery() > 0;
             }
         }
-        public TableDTO GetByID(int tableID)
+        public TableDTO GetByID(int tableID)// load thon tin ban chi dinh theo ID ban
         {
             string query = @"SELECT * FROM CafeTables WHERE TableID = @TableID";
 
