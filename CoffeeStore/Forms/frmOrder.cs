@@ -66,7 +66,7 @@ namespace CoffeeStore.Forms
                 btn.Width = 100;
                 btn.Height = 60;
                 btn.Text = table.TableName;
-                btn.Tag = table;
+                btn.Tag = table;                
                 btn.Click += BtnTable_Click;
                 flpTable.Controls.Add(btn);
             }
@@ -101,6 +101,7 @@ namespace CoffeeStore.Forms
         {
             flpCategory.Controls.Clear();
             DataTable dt = categoryBUS.GetAll();
+            
             foreach (DataRow row in dt.Rows)
             {
                 bool isActive = Convert.ToBoolean(row["IsActive"]);
@@ -148,10 +149,15 @@ namespace CoffeeStore.Forms
                 MessageBox.Show("Vui lòng chọn bàn");
                 return;
             }
+
             Button btn = (Button)sender;
+
             int foodID = Convert.ToInt32(btn.Tag);
+
             BillDTO billDTO =billBUS.GetOpenBillByTable(selectedTable.TableID);
+
             int billID;
+
             if (billDTO == null)
             {
                 BillDTO newBill = new BillDTO();
@@ -265,30 +271,26 @@ namespace CoffeeStore.Forms
         private BillDetailDTO selectedBillDetail = null;
         private void btnPlus_Click(object sender, EventArgs e)
         {
-            /* if (selectedBillDetail == null)
-                 return;
-             int quantity =selectedBillDetail.Quantity + 1;
-             decimal amount = quantity * selectedBillDetail.UnitPrice;
-             billDetailBUS.UpdateQuantity(selectedBillDetail.BillDetailID,quantity,amount);
-             BillDTO bill =billBUS.GetOpenBillByTable(selectedTable.TableID);
-             LoadBill(bill.BillID);*/
             if (selectedBillDetail == null)
+            {
+                MessageBox.Show("Vui lòng chọn món.");
                 return;
+            }
             int quantity = selectedBillDetail.Quantity + 1;
             decimal amount = quantity * selectedBillDetail.UnitPrice;
-            billDetailBUS.UpdateQuantity( selectedBillDetail.BillDetailID, quantity, amount);
-            BillDTO bill = billBUS.GetOpenBillByTable( selectedTable.TableID);
-            LoadBill(bill.BillID);
-            selectedBillDetail = billDetailBUS.GetByID( selectedBillDetail.BillDetailID);
+            billDetailBUS.UpdateQuantity(selectedBillDetail.BillDetailID, quantity, amount);
+            LoadBill(selectedBillDetail.BillID);
+            selectedBillDetail = billDetailBUS.GetByID(selectedBillDetail.BillDetailID);
         }
 
         private void btnMinus_Click(object sender, EventArgs e)
         {
             if (selectedBillDetail == null)
+            {
+                MessageBox.Show("Vui lòng chọn món.");
                 return;
-
-            int quantity =selectedBillDetail.Quantity - 1;
-
+            }
+            int quantity = selectedBillDetail.Quantity - 1;
             if (quantity <= 0)
             {
                 billDetailBUS.Delete(selectedBillDetail.BillDetailID);
@@ -297,12 +299,13 @@ namespace CoffeeStore.Forms
             }
             else
             {
-                decimal amount =quantity *selectedBillDetail.UnitPrice;
-                billDetailBUS.UpdateQuantity(selectedBillDetail.BillDetailID,quantity,amount);
-                selectedBillDetail =billDetailBUS.GetByID(selectedBillDetail.BillDetailID);
+                decimal amount = quantity * selectedBillDetail.UnitPrice;
+
+                billDetailBUS.UpdateQuantity(selectedBillDetail.BillDetailID, quantity, amount);
+
+                selectedBillDetail = billDetailBUS.GetByID(selectedBillDetail.BillDetailID);
             }
-            BillDTO bill =billBUS.GetOpenBillByTable(selectedTable.TableID);
-            LoadBill(bill.BillID);
+            LoadBill(selectedBillDetail?.BillID ?? billBUS.GetOpenBillByTable(selectedTable.TableID).BillID);
         }
     }
 }

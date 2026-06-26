@@ -49,9 +49,9 @@ namespace CoffeeStore.Forms
         {
             LoadAreas();
 
-            cboStatus.Items.Add("Empty");
+            cboStatus.Items.Add("Empty");               //Empty: status = 0 ;   Occupied: status = 1
             cboStatus.Items.Add("Occupied");
-
+            
             cboStatus.SelectedIndex = 0;
 
             if (_table == null)
@@ -61,9 +61,7 @@ namespace CoffeeStore.Forms
             else
             {
                 txtTableName.Text = _table.TableName;
-
                 cboAreaName.SelectedValue = _table.AreaID;
-
                 cboStatus.SelectedIndex = _table.Status;
             }
 
@@ -80,35 +78,25 @@ namespace CoffeeStore.Forms
             if (_table == null)
             {
                 TableDTO table = new TableDTO();
-
                 table.TableName = txtTableName.Text.Trim();
-
                 table.AreaID = Convert.ToInt32(cboAreaName.SelectedValue);
                 table.Status = cboStatus.SelectedIndex;
                 if (tableBUS.Insert(table))
                 {
                     MessageBox.Show("Thêm bàn thành công");
-
                     DialogResult = DialogResult.OK;
-
                     Close();
                 }
-                //MessageBox.Show(table.TableName.ToString() + " \n"+table.AreaID.ToString()+"\n"+table.Status.ToString());
             }
             else
             {
                 _table.TableName = txtTableName.Text.Trim();
-
                 _table.AreaID = Convert.ToInt32(cboAreaName.SelectedValue);
-
                 _table.Status = cboStatus.SelectedIndex;
-
                 if (tableBUS.Update(_table))
                 {
                     MessageBox.Show("Cập nhật thành công");
-
                     DialogResult = DialogResult.OK;
-
                     Close();
                 }
             }

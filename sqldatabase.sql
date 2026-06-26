@@ -133,16 +133,14 @@ GO
 CREATE TABLE Bills
 (
     BillID INT IDENTITY(1,1) PRIMARY KEY,
-
-    TableID INT NOT NULL,
-
+	TableID INT NOT NULL,
     UserID INT NOT NULL,
-
     CreatedDate DATETIME DEFAULT GETDATE(),
-
     Status INT DEFAULT 0
 )
 GO
+ALTER TABLE Bills ADD TotalAmount DECIMAL(18,0) DEFAULT 0; 
+ALTER TABLE Bills ADD PaidDate DATETIME NULL;
 CREATE TABLE BillDetails
 (
     BillDetailID INT IDENTITY(1,1) PRIMARY KEY,
@@ -172,3 +170,4 @@ SELECT * FROM Areas
 SELECT * FROM CafeTables
 SELECT * FROM Categories
 SELECT * FROM Foods
+select * from Bills

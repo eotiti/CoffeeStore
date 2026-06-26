@@ -17,5 +17,13 @@ namespace CoffeeStore.DTO
         public DateTime CreatedDate { get; set; }
 
         public int Status { get; set; }
+        public decimal TotalAmount { get; set; }
+        public DateTime? PaidDate { get; set; }
+    }
+    public static class BillStatus
+    {
+        public const int Open = 0;
+
+        public const int Paid = 1;
     }
 }

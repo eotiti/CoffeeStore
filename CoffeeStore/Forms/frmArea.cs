@@ -114,11 +114,9 @@ namespace CoffeeStore.Forms
         {
             Button btn = (Button)sender;
             TableDTO table = (TableDTO)btn.Tag;
-
             selectedTable = (TableDTO)btn.Tag;
             selectedTableID = table.TableID;
-           //AreaDAL areaDAL = new AreaDAL();
-           // MessageBox.Show(table.TableName+" ID: "+table.TableID+"\n KV: "+areaDAL.GetByID(table.AreaID).AreaName);
+      
         }
         
         private void frmArea_Load(object sender, EventArgs e)
