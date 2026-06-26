@@ -14,17 +14,12 @@ namespace CoffeeStore.DAL
         public DataTable GetAll()
         {
             string sql = @"SELECT * FROM Categories ORDER BY CategoryID asc";
-
             DataTable dt = new DataTable();
-
             using (SqlConnection conn = GetConnection())
             {
-                SqlDataAdapter da =
-                    new SqlDataAdapter(sql, conn);
-
+                SqlDataAdapter da =new SqlDataAdapter(sql, conn);
                 da.Fill(dt);
             }
-
             return dt;
         }
         public bool Insert(CategoryDTO category)

@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using CoffeeStore.DTO;
 using CoffeeStore.DAL;
 using CoffeeStore.BUS;
+using CoffeeStore.Common;
 
 
 namespace CoffeeStore.Forms
@@ -20,18 +21,40 @@ namespace CoffeeStore.Forms
         {
             InitializeComponent();
         }
-        //============================ A R E A ======================================
+        
+        
         private AreaBUS areaBUS = new AreaBUS();
+
+        private TableBUS tableBUS = new TableBUS();
+        private TableDTO selectedTable = null;
+        private Button selectedTableButton = null;
+
+        private CategoryBUS categoryBUS = new CategoryBUS();
+        private int selectedCategoryID = 0;
+
+        private FoodBUS foodBUS = new FoodBUS();
+
+        private BillBUS billBUS = new BillBUS();
+        private BillDetailBUS billDetailBUS = new BillDetailBUS();
+        private int selectedBillDetailID = 0;
+        
+        //============================ A R E A ======================================
+
         private void LoadAreas()                                            // Load Area => All
         {
             DataTable dt = areaBUS.GetAll();
+            
+            DataRow row = dt.NewRow();
+            row["AreaID"] = 0;
+            row["AreaName"] = "- Select Area -";
+            dt.Rows.InsertAt(row, 0);
             cboArea.DataSource = dt;
             cboArea.DisplayMember = "AreaName";
             cboArea.ValueMember = "AreaID";
+            cboArea.SelectedIndex=0;
         }
-        
+       
         //======================== T A B L E ================================
-        private int selectedCategoryID = 0;                                 // Bien toan cuc SelectCategoryID
         
         private void LoadTables(int areaID)                                 // Load Table => areaID
         {
@@ -58,10 +81,22 @@ namespace CoffeeStore.Forms
             selectedTableButton = btn;
             selectedTableButton.BackColor = Color.LightBlue;
             selectedTable = (TableDTO)btn.Tag;
-            MessageBox.Show("Đã chọn bàn: " + selectedTable.TableName);
+            BillDTO bill =billBUS.GetOpenBillByTable(selectedTable.TableID);
+            if (bill != null)
+            {
+                groupBox2.Text = "Hoá đơn: "+ selectedTable.TableName.ToString();
+                LoadBill(bill.BillID);
+            }
+            else
+            {
+                groupBox2.Text = "Hoá đơn";
+                dgvBill.DataSource = null;
+                lblSum.Text ="Tổng tiền: 0 VNĐ";
+            }
+
+
         }
         //============================C A T E G O R Y==================================
-        CategoryBUS categoryBUS = new CategoryBUS();
         private void LoadCategories()                                           // Load Category => All
         {
             flpCategory.Controls.Clear();
@@ -88,8 +123,8 @@ namespace CoffeeStore.Forms
             selectedCategoryID = Convert.ToInt32(btn.Tag);
             LoadFoods(selectedCategoryID);
         }
-        //================================ F O O D =========================================
-        FoodBUS foodBUS = new FoodBUS();
+        //================================ F O O D  + B I L L =========================================
+        
         private void LoadFoods(int categoryID)                              // Load Food = ID Category
         {
             flpFood.Controls.Clear();
@@ -105,30 +140,92 @@ namespace CoffeeStore.Forms
                 flpFood.Controls.Add(btn);
             }
         }
-        private void BtnFood_Click(object sender,EventArgs e)               //Event Click Food
+        
+        private void BtnFood_Click(object sender,EventArgs e)               //Event Click Food = > Create Bill
         {
+            if (selectedTable == null)
+            {
+                MessageBox.Show("Vui lòng chọn bàn");
+                return;
+            }
             Button btn = (Button)sender;
-            int foodID =Convert.ToInt32(btn.Tag);
-            MessageBox.Show("FoodID = " + foodID);
+            int foodID = Convert.ToInt32(btn.Tag);
+            BillDTO billDTO =billBUS.GetOpenBillByTable(selectedTable.TableID);
+            int billID;
+            if (billDTO == null)
+            {
+                BillDTO newBill = new BillDTO();
+                newBill.TableID = selectedTable.TableID;
+                newBill.UserID = CurrentUser.User.UserID;
+                billID = billBUS.CreateBill(newBill);
+            }
+            else
+            {
+                billID = billDTO.BillID;
+            }
+
+            FoodDTO food = foodBUS.GetByID(foodID);
+            BillDetailDTO detail = new BillDetailDTO();                    // tao cái DTO bill detail 
+            detail.BillID = billID;                                        // set các tham số
+            detail.FoodID = foodID;
+            detail.Quantity = 1;
+            detail.UnitPrice = food.Price;
+            detail.Amount = food.Price;
+
+            BillDetailDTO existDetail =billDetailBUS.GetFoodInBill(billID,foodID);        // them bill Detail theo cái Bill ID
+            if (existDetail == null)
+            {
+                billDetailBUS.Insert(detail);
+            }
+            else
+            {
+                int quantity =existDetail.Quantity + 1;
+                decimal amount =quantity * existDetail.UnitPrice;
+                billDetailBUS.UpdateQuantity(existDetail.BillDetailID,quantity,amount);
+            }                                
+            LoadBill(billID);
         }
         //====================================== Bill=====================================
-        private TableBUS tableBUS = new TableBUS();
-        private TableDTO selectedTable = null;
-        private Button selectedTableButton = null;
+        private void LoadBill(int billID)
+        {
+            dgvBill.DataSource = billDetailBUS.GetBillDetails(billID);
+            dgvBill.Columns["BillDetailID"].HeaderText = "STT";
+            dgvBill.Columns["FoodName"].HeaderText = "Tên món";
+            dgvBill.Columns["Quantity"].HeaderText = "Số lượng";
+            dgvBill.Columns["UnitPrice"].HeaderText = "Đơn Giá";
+            dgvBill.Columns["Amount"].HeaderText = "Thành tiền";
+            dgvBill.Columns["UnitPrice"].DefaultCellStyle.Format = "N0";
+            dgvBill.Columns["Amount"].DefaultCellStyle.Format = "N0";
+            dgvBill.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvBill.Columns["BillDetailID"].Visible = false;
+            LoadTotal(billID);
+            
+        }
+        private void LoadTotal(int billID)
+        {
+            decimal total =billDetailBUS.GetTotalAmount(billID);
+            lblSum.Text = "Tổng tiền: "+ total.ToString("N0")+" VNĐ";
+        }
 
         //===========================================================================
         private void frmOrder_Load(object sender, EventArgs e)
         {
             LoadCategories();
             LoadAreas();
-            cboArea.SelectedIndex = -1;
+            cboArea.DropDownStyle = ComboBoxStyle.DropDownList;
         }
+
         private void cboArea_SelectedIndexChanged(object sender, EventArgs e)
         {
             {
                 if (cboArea.SelectedValue == null)
                 {
+                    flpTable.Visible=false;
                     return;
+                }
+                else
+                {
+                    flpTable.Visible = true;
                 }
                 int areaID;
                 if (!int.TryParse(cboArea.SelectedValue.ToString(),out areaID))
@@ -137,6 +234,75 @@ namespace CoffeeStore.Forms
                 }
                 LoadTables(areaID);
             }
+        }
+
+        private void dgvBill_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+            selectedBillDetailID =Convert.ToInt32(dgvBill.Rows[e.RowIndex].Cells["BillDetailID"].Value);
+            selectedBillDetail = billDetailBUS.GetByID(selectedBillDetailID);
+
+        }
+
+        private void btnDeleteFood_Click(object sender, EventArgs e)
+        {
+            if (selectedBillDetailID == 0)
+            {
+                MessageBox.Show("Vui lòng chọn món");
+                return;
+            }
+
+            if (billDetailBUS.Delete(selectedBillDetailID))
+            {
+                BillDTO bill = billBUS.GetOpenBillByTable( selectedTable.TableID);
+                LoadBill(bill.BillID);
+                selectedBillDetailID = 0;
+            }
+        }
+        private BillDetailDTO selectedBillDetail = null;
+        private void btnPlus_Click(object sender, EventArgs e)
+        {
+            /* if (selectedBillDetail == null)
+                 return;
+             int quantity =selectedBillDetail.Quantity + 1;
+             decimal amount = quantity * selectedBillDetail.UnitPrice;
+             billDetailBUS.UpdateQuantity(selectedBillDetail.BillDetailID,quantity,amount);
+             BillDTO bill =billBUS.GetOpenBillByTable(selectedTable.TableID);
+             LoadBill(bill.BillID);*/
+            if (selectedBillDetail == null)
+                return;
+            int quantity = selectedBillDetail.Quantity + 1;
+            decimal amount = quantity * selectedBillDetail.UnitPrice;
+            billDetailBUS.UpdateQuantity( selectedBillDetail.BillDetailID, quantity, amount);
+            BillDTO bill = billBUS.GetOpenBillByTable( selectedTable.TableID);
+            LoadBill(bill.BillID);
+            selectedBillDetail = billDetailBUS.GetByID( selectedBillDetail.BillDetailID);
+        }
+
+        private void btnMinus_Click(object sender, EventArgs e)
+        {
+            if (selectedBillDetail == null)
+                return;
+
+            int quantity =selectedBillDetail.Quantity - 1;
+
+            if (quantity <= 0)
+            {
+                billDetailBUS.Delete(selectedBillDetail.BillDetailID);
+
+                selectedBillDetail = null;
+            }
+            else
+            {
+                decimal amount =quantity *selectedBillDetail.UnitPrice;
+                billDetailBUS.UpdateQuantity(selectedBillDetail.BillDetailID,quantity,amount);
+                selectedBillDetail =billDetailBUS.GetByID(selectedBillDetail.BillDetailID);
+            }
+            BillDTO bill =billBUS.GetOpenBillByTable(selectedTable.TableID);
+            LoadBill(bill.BillID);
         }
     }
 }

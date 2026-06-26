@@ -40,26 +40,17 @@ namespace CoffeeStore.Forms
         }
         private void LoadFoods()
         {
-            dgvFood.DataSource = foodBUS.GetAll();
-            
-
+            dgvFood.DataSource = foodBUS.GetAll();            
             dgvFood.Columns["FoodID"].HeaderText = "STT";
-
             dgvFood.Columns["FoodName"].HeaderText = "Tên món";
-
             dgvFood.Columns["Price"].HeaderText = "Giá";
-
             dgvFood.Columns["FoodID"].Width = 60;
             dgvFood.Columns["FoodName"].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-
-            dgvFood.Columns["Price"].DefaultCellStyle.Format = "N0";
-
-            dgvFood.Columns["CategoryID"].Visible = false;
-
-            dgvFood.Columns["CategoryName"].Visible = false;
-
-            dgvFood.Columns["IsActive"].Visible = false;
             dgvFood.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvFood.Columns["Price"].DefaultCellStyle.Format = "N0";
+            dgvFood.Columns["CategoryID"].Visible = false;
+            dgvFood.Columns["CategoryName"].Visible = false;
+            dgvFood.Columns["IsActive"].Visible = false;            
         }
         private void ClearForm()
         {
@@ -94,15 +85,10 @@ namespace CoffeeStore.Forms
                 return;
 
             DataGridViewRow row = dgvFood.Rows[e.RowIndex];
-
             selectedFoodID = Convert.ToInt32(row.Cells["FoodID"].Value);
-
             txtFoodName.Text = row.Cells["FoodName"].Value.ToString();
-
             txtPrice.Text = row.Cells["Price"].Value.ToString();
-
             cboCategory.SelectedValue = Convert.ToInt32(row.Cells["CategoryID"].Value);
-
             chkActive.Checked = Convert.ToBoolean(row.Cells["IsActive"].Value);
         }
 
@@ -111,18 +97,14 @@ namespace CoffeeStore.Forms
             if (string.IsNullOrWhiteSpace(txtFoodName.Text))
             {
                 MessageBox.Show("Vui lòng nhập tên món");
-
                 txtFoodName.Focus();
-
                 return;
             }
 
             if (!decimal.TryParse(txtPrice.Text, out decimal price))
             {
                 MessageBox.Show("Giá không hợp lệ");
-
                 txtPrice.Focus();
-
                 return;
             }
 
