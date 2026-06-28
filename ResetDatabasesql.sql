@@ -1,0 +1,8 @@
+﻿DELETE FROM BillDetails;
+DELETE FROM Bills;
+
+DBCC CHECKIDENT ('BillDetails', RESEED, 0);
+DBCC CHECKIDENT ('Bills', RESEED, 0);
+
+UPDATE CafeTables
+SET Status = 0;

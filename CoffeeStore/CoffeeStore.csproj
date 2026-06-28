@@ -70,6 +70,8 @@
     <Compile Include="DTO\FoodDTO.cs" />
     <Compile Include="DTO\TableDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
+    <Compile Include="Enums\BillStatus.cs" />
+    <Compile Include="Enums\TableStatus.cs" />
     <Compile Include="Forms\frmCategory.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -44,7 +44,21 @@ namespace CoffeeStore.DAL
             conn.Close();
             return billID;
         }
+        public bool Payment(int billID, decimal totalAmount)
+        {
+            string sql = @"UPDATE Bills SET Status = @Status, TotalAmount = @TotalAmount, PaidDate = GETDATE() WHERE BillID = @BillID";
 
+            using (SqlConnection conn = GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@BillID", billID);
+                cmd.Parameters.AddWithValue("@Status", BillStatus.Paid);
+                cmd.Parameters.AddWithValue("@TotalAmount", totalAmount);
+                conn.Open();
+                int rows = cmd.ExecuteNonQuery();
+                return rows > 0;
+            }
+        }
 
     }
 }

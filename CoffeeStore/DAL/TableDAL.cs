@@ -11,21 +11,7 @@ namespace CoffeeStore.DAL
 {
     public class TableDAL:DBConnection
     {
-        /*public DataTable GetAll()
-        {
-            string sql = @"SELECT * FROM CafeTables ORDER BY TableName asc";
-
-            DataTable dt = new DataTable();
-
-            using (SqlConnection conn = GetConnection())
-            {
-                SqlDataAdapter da =new SqlDataAdapter(sql, conn);
-
-                da.Fill(dt);
-            }
-
-            return dt;
-        }*/
+        
         public List<TableDTO> GetAllByAreaID(int areaID)//lay ban theo khu vuc
         {
             List<TableDTO> list = new List<TableDTO>();
@@ -76,31 +62,23 @@ namespace CoffeeStore.DAL
             using (SqlConnection conn = GetConnection())
             {
                 conn.Open();
-
                 SqlCommand cmd = new SqlCommand(query, conn);
-
                 cmd.Parameters.AddWithValue("@TableID", table.TableID);
                 cmd.Parameters.AddWithValue("@TableName", table.TableName);
                 cmd.Parameters.AddWithValue("@AreaID", table.AreaID);
                 cmd.Parameters.AddWithValue("@Status", table.Status);
-
                 return cmd.ExecuteNonQuery() > 0;
             }
         }
         public TableDTO GetByID(int tableID)// load thon tin ban chi dinh theo ID ban
         {
             string query = @"SELECT * FROM CafeTables WHERE TableID = @TableID";
-
             using (SqlConnection conn = GetConnection())
             {
                 conn.Open();
-
                 SqlCommand cmd = new SqlCommand(query, conn);
-
                 cmd.Parameters.AddWithValue("@TableID", tableID);
-
                 SqlDataReader reader = cmd.ExecuteReader();
-
                 if (reader.Read())
                 {
                     return new TableDTO
@@ -113,6 +91,19 @@ namespace CoffeeStore.DAL
                 }
             }
             return null;
+        }
+        public bool UpdateStatus(int tableID, int status)
+        {
+            string sql = @"UPDATE CafeTables SET Status = @Status WHERE TableID = @TableID";
+            using (SqlConnection conn = GetConnection())
+            {
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@Status", status);
+                cmd.Parameters.AddWithValue("@TableID", tableID);
+                conn.Open();
+                int rows = cmd.ExecuteNonQuery();
+                return rows > 0;
+            }
         }
     }
 }

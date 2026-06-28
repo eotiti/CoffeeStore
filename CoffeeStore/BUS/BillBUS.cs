@@ -21,5 +21,9 @@ namespace CoffeeStore.BUS
         {
             return dal.CreateBill(bill);
         }
+        public bool Payment(int billID, decimal totalAmount)
+        {
+            return dal.Payment(billID, totalAmount);
+        }
     }
 }

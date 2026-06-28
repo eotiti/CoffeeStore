@@ -36,10 +36,10 @@ namespace CoffeeStore.BUS
         {
             return tableDAL.GetByID(tableID);
         }
-        /*public DataTable GetAll() 
-        { 
-            return tableDAL.GetAll();
-        }*/
+        public bool UpdateStatus(int tableID, int status)
+        {
+            return tableDAL.UpdateStatus(tableID, status);
+        }
     }
 
 }

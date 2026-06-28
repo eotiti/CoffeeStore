@@ -1,4 +1,9 @@
-﻿using System;
+﻿using CoffeeStore.BUS;
+using CoffeeStore.Common;
+using CoffeeStore.DAL;
+using CoffeeStore.DTO;
+using CoffeeStore.Enum;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -7,10 +12,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using CoffeeStore.DTO;
-using CoffeeStore.DAL;
-using CoffeeStore.BUS;
-using CoffeeStore.Common;
 
 
 namespace CoffeeStore.Forms
@@ -27,7 +28,7 @@ namespace CoffeeStore.Forms
 
         private TableBUS tableBUS = new TableBUS();
         private TableDTO selectedTable = null;
-        private Button selectedTableButton = null;
+        //private Button selectedTableButton = null;
 
         private CategoryBUS categoryBUS = new CategoryBUS();
         private int selectedCategoryID = 0;
@@ -37,7 +38,7 @@ namespace CoffeeStore.Forms
         private BillBUS billBUS = new BillBUS();
         private BillDetailBUS billDetailBUS = new BillDetailBUS();
         private int selectedBillDetailID = 0;
-        
+        private decimal currentTotal = 0;
         //============================ A R E A ======================================
 
         private void LoadAreas()                                            // Load Area => All
@@ -68,28 +69,32 @@ namespace CoffeeStore.Forms
                 btn.Text = table.TableName;
                 btn.Tag = table;                
                 btn.Click += BtnTable_Click;
+                if (table.Status == TableStatus.Empty)
+                {
+                    btn.BackColor = Color.LightGreen;
+                }
+                else
+                {
+                    btn.BackColor = Color.LightSalmon;
+                }
                 flpTable.Controls.Add(btn);
             }
         }
         private void BtnTable_Click(object sender, EventArgs e)                 //Event Click Table
         {
-            if (selectedTableButton != null)
-            {
-                selectedTableButton.BackColor = SystemColors.Control;
-            }
             Button btn = (Button)sender;
-            selectedTableButton = btn;
-            selectedTableButton.BackColor = Color.LightBlue;
             selectedTable = (TableDTO)btn.Tag;
+            groupBox2.Text = "ĐANG CHỌN BÀN: "+selectedTable.TableName;            
             BillDTO bill =billBUS.GetOpenBillByTable(selectedTable.TableID);
             if (bill != null)
             {
-                groupBox2.Text = "Hoá đơn: "+ selectedTable.TableName.ToString();
                 LoadBill(bill.BillID);
+                LoadTotal(bill.BillID);
             }
             else
             {
-                groupBox2.Text = "Hoá đơn";
+                dgvBill.DataSource = null;
+                //groupBox2.Text = "Chưa chọn bàn";
                 dgvBill.DataSource = null;
                 lblSum.Text ="Tổng tiền: 0 VNĐ";
             }
@@ -149,13 +154,9 @@ namespace CoffeeStore.Forms
                 MessageBox.Show("Vui lòng chọn bàn");
                 return;
             }
-
             Button btn = (Button)sender;
-
             int foodID = Convert.ToInt32(btn.Tag);
-
             BillDTO billDTO =billBUS.GetOpenBillByTable(selectedTable.TableID);
-
             int billID;
 
             if (billDTO == null)
@@ -164,6 +165,7 @@ namespace CoffeeStore.Forms
                 newBill.TableID = selectedTable.TableID;
                 newBill.UserID = CurrentUser.User.UserID;
                 billID = billBUS.CreateBill(newBill);
+                
             }
             else
             {
@@ -181,7 +183,13 @@ namespace CoffeeStore.Forms
             BillDetailDTO existDetail =billDetailBUS.GetFoodInBill(billID,foodID);        // them bill Detail theo cái Bill ID
             if (existDetail == null)
             {
-                billDetailBUS.Insert(detail);
+                if (billDetailBUS.Insert(detail))
+                {
+                    tableBUS.UpdateStatus(selectedTable.TableID, TableStatus.Occupied);
+                    RefreshTables();
+                    //LoadTables(selectedAreaID);
+                    LoadBill(billID);
+                }
             }
             else
             {
@@ -202,25 +210,29 @@ namespace CoffeeStore.Forms
             dgvBill.Columns["Amount"].HeaderText = "Thành tiền";
             dgvBill.Columns["UnitPrice"].DefaultCellStyle.Format = "N0";
             dgvBill.Columns["Amount"].DefaultCellStyle.Format = "N0";
-            dgvBill.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvBill.Columns["BillDetailID"].Visible = false;
             LoadTotal(billID);
             
         }
         private void LoadTotal(int billID)
         {
-            decimal total =billDetailBUS.GetTotalAmount(billID);
-            lblSum.Text = "Tổng tiền: "+ total.ToString("N0")+" VNĐ";
+            currentTotal =billDetailBUS.GetTotalAmount(billID);
+            lblSum.Text = "Tổng tiền: "+ currentTotal.ToString("N0")+" VNĐ";
         }
-
-        //===========================================================================
+        private void RefreshTables()
+        {
+            LoadTables(selectedAreaID);
+        }
+        //=================================SYSTEM CODE GENERATE==========================================
         private void frmOrder_Load(object sender, EventArgs e)
         {
             LoadCategories();
             LoadAreas();
             cboArea.DropDownStyle = ComboBoxStyle.DropDownList;
+            dgvBill.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            
         }
-
+        private int selectedAreaID;
         private void cboArea_SelectedIndexChanged(object sender, EventArgs e)
         {
             {
@@ -233,12 +245,12 @@ namespace CoffeeStore.Forms
                 {
                     flpTable.Visible = true;
                 }
-                int areaID;
-                if (!int.TryParse(cboArea.SelectedValue.ToString(),out areaID))
+                //int areaID;
+                if (!int.TryParse(cboArea.SelectedValue.ToString(),out selectedAreaID))
                 {
                     return;
                 }
-                LoadTables(areaID);
+                RefreshTables();
             }
         }
 
@@ -306,6 +318,44 @@ namespace CoffeeStore.Forms
                 selectedBillDetail = billDetailBUS.GetByID(selectedBillDetail.BillDetailID);
             }
             LoadBill(selectedBillDetail?.BillID ?? billBUS.GetOpenBillByTable(selectedTable.TableID).BillID);
+        }
+
+        private void btnPayment_Click(object sender, EventArgs e)
+        {
+            if (selectedTable == null)
+            {
+                MessageBox.Show("Vui lòng chọn bàn.");
+                return;
+            }
+
+            BillDTO bill = billBUS.GetOpenBillByTable(selectedTable.TableID);
+
+            if (bill == null)
+            {
+                MessageBox.Show("Bàn này chưa có hóa đơn.");
+                return;
+            }
+            DialogResult result = MessageBox.Show("Tổng tiền: " + currentTotal.ToString("N0") + " VNĐ\n\nXác nhận thanh toán?", "Thanh toán", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.No)
+            {
+                return;
+            }
+            bool success = billBUS.Payment(bill.BillID, currentTotal);
+
+            if (!success)
+            {
+                MessageBox.Show("Thanh toán thất bại.");
+                return;
+            }
+            tableBUS.UpdateStatus(selectedTable.TableID,TableStatus.Empty);
+            dgvBill.DataSource = null;
+            lblSum.Text = "Tổng tiền: 0 VNĐ";
+            currentTotal = 0;
+            selectedBillDetail = null;
+            selectedTable = null;
+            flpFood.Controls.Clear();
+            RefreshTables();
         }
     }
 }
