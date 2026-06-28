@@ -1,270 +1,169 @@
-﻿USE [master]
+﻿CREATE DATABASE CoffeeManagement;
 GO
-/****** Object:  Database [CafeManagement]    Script Date: 29/06/2026 12:01:52 AM ******/
-CREATE DATABASE [CafeManagement]
- CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'CafeManagement', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\CafeManagement.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
- LOG ON 
-( NAME = N'CafeManagement_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.SQLEXPRESS\MSSQL\DATA\CafeManagement_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
- WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
+
+USE CoffeeManagement;
 GO
-ALTER DATABASE [CafeManagement] SET COMPATIBILITY_LEVEL = 160
-GO
-IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
-begin
-EXEC [CafeManagement].[dbo].[sp_fulltext_database] @action = 'enable'
-end
-GO
-ALTER DATABASE [CafeManagement] SET ANSI_NULL_DEFAULT OFF 
-GO
-ALTER DATABASE [CafeManagement] SET ANSI_NULLS OFF 
-GO
-ALTER DATABASE [CafeManagement] SET ANSI_PADDING OFF 
-GO
-ALTER DATABASE [CafeManagement] SET ANSI_WARNINGS OFF 
-GO
-ALTER DATABASE [CafeManagement] SET ARITHABORT OFF 
-GO
-ALTER DATABASE [CafeManagement] SET AUTO_CLOSE ON 
-GO
-ALTER DATABASE [CafeManagement] SET AUTO_SHRINK OFF 
-GO
-ALTER DATABASE [CafeManagement] SET AUTO_UPDATE_STATISTICS ON 
-GO
-ALTER DATABASE [CafeManagement] SET CURSOR_CLOSE_ON_COMMIT OFF 
-GO
-ALTER DATABASE [CafeManagement] SET CURSOR_DEFAULT  GLOBAL 
-GO
-ALTER DATABASE [CafeManagement] SET CONCAT_NULL_YIELDS_NULL OFF 
-GO
-ALTER DATABASE [CafeManagement] SET NUMERIC_ROUNDABORT OFF 
-GO
-ALTER DATABASE [CafeManagement] SET QUOTED_IDENTIFIER OFF 
-GO
-ALTER DATABASE [CafeManagement] SET RECURSIVE_TRIGGERS OFF 
-GO
-ALTER DATABASE [CafeManagement] SET  ENABLE_BROKER 
-GO
-ALTER DATABASE [CafeManagement] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
-GO
-ALTER DATABASE [CafeManagement] SET DATE_CORRELATION_OPTIMIZATION OFF 
-GO
-ALTER DATABASE [CafeManagement] SET TRUSTWORTHY OFF 
-GO
-ALTER DATABASE [CafeManagement] SET ALLOW_SNAPSHOT_ISOLATION OFF 
-GO
-ALTER DATABASE [CafeManagement] SET PARAMETERIZATION SIMPLE 
-GO
-ALTER DATABASE [CafeManagement] SET READ_COMMITTED_SNAPSHOT OFF 
-GO
-ALTER DATABASE [CafeManagement] SET HONOR_BROKER_PRIORITY OFF 
-GO
-ALTER DATABASE [CafeManagement] SET RECOVERY SIMPLE 
-GO
-ALTER DATABASE [CafeManagement] SET  MULTI_USER 
-GO
-ALTER DATABASE [CafeManagement] SET PAGE_VERIFY CHECKSUM  
-GO
-ALTER DATABASE [CafeManagement] SET DB_CHAINING OFF 
-GO
-ALTER DATABASE [CafeManagement] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
-GO
-ALTER DATABASE [CafeManagement] SET TARGET_RECOVERY_TIME = 60 SECONDS 
-GO
-ALTER DATABASE [CafeManagement] SET DELAYED_DURABILITY = DISABLED 
-GO
-ALTER DATABASE [CafeManagement] SET ACCELERATED_DATABASE_RECOVERY = OFF  
-GO
-ALTER DATABASE [CafeManagement] SET QUERY_STORE = ON
-GO
-ALTER DATABASE [CafeManagement] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
-GO
-USE [CafeManagement]
-GO
-/****** Object:  Table [dbo].[Areas]    Script Date: 29/06/2026 12:01:52 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Areas](
-	[AreaID] [int] IDENTITY(1,1) NOT NULL,
-	[AreaName] [nvarchar](100) NOT NULL,
-	[Description] [nvarchar](255) NULL,
-PRIMARY KEY CLUSTERED 
+
+/*=====================================================
+    Roles
+=====================================================*/
+
+CREATE TABLE Roles
 (
-	[AreaID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+    RoleID INT IDENTITY(1,1) PRIMARY KEY,
+
+    RoleName NVARCHAR(50) NOT NULL
+);
 GO
-/****** Object:  Table [dbo].[BillDetails]    Script Date: 29/06/2026 12:01:52 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[BillDetails](
-	[BillDetailID] [int] IDENTITY(1,1) NOT NULL,
-	[BillID] [int] NOT NULL,
-	[FoodID] [int] NOT NULL,
-	[Quantity] [int] NOT NULL,
-	[UnitPrice] [decimal](18, 0) NOT NULL,
-	[Amount] [decimal](18, 0) NOT NULL,
-PRIMARY KEY CLUSTERED 
+
+/*=====================================================
+    Users
+=====================================================*/
+
+CREATE TABLE Users
 (
-	[BillDetailID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+    UserID INT IDENTITY(1,1) PRIMARY KEY,
+
+    UserName NVARCHAR(50) NOT NULL,
+
+    Password NVARCHAR(100) NOT NULL,
+
+    FullName NVARCHAR(100) NOT NULL,
+
+    RoleID INT NOT NULL,
+
+    IsActive BIT DEFAULT 1,
+
+    CONSTRAINT FK_Users_Roles
+        FOREIGN KEY(RoleID)
+        REFERENCES Roles(RoleID)
+);
 GO
-/****** Object:  Table [dbo].[Bills]    Script Date: 29/06/2026 12:01:52 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Bills](
-	[BillID] [int] IDENTITY(1,1) NOT NULL,
-	[TableID] [int] NOT NULL,
-	[UserID] [int] NOT NULL,
-	[CreatedDate] [datetime] NULL,
-	[Status] [int] NULL,
-	[TotalAmount] [decimal](18, 0) NULL,
-	[PaidDate] [datetime] NULL,
-PRIMARY KEY CLUSTERED 
+
+/*=====================================================
+    Areas
+=====================================================*/
+
+CREATE TABLE Areas
 (
-	[BillID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+    AreaID INT IDENTITY(1,1) PRIMARY KEY,
+
+    AreaName NVARCHAR(100) NOT NULL,
+
+    Description NVARCHAR(255)
+);
 GO
-/****** Object:  Table [dbo].[CafeTables]    Script Date: 29/06/2026 12:01:52 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[CafeTables](
-	[TableID] [int] IDENTITY(1,1) NOT NULL,
-	[TableName] [nvarchar](50) NOT NULL,
-	[AreaID] [int] NOT NULL,
-	[Status] [int] NULL,
-PRIMARY KEY CLUSTERED 
+
+/*=====================================================
+    CafeTables
+=====================================================*/
+
+CREATE TABLE CafeTables
 (
-	[TableID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+    TableID INT IDENTITY(1,1) PRIMARY KEY,
+
+    TableName NVARCHAR(50) NOT NULL,
+
+    AreaID INT NOT NULL,
+
+    Status INT DEFAULT 0,
+
+    CONSTRAINT FK_CafeTables_Areas
+        FOREIGN KEY(AreaID)
+        REFERENCES Areas(AreaID)
+);
 GO
-/****** Object:  Table [dbo].[Categories]    Script Date: 29/06/2026 12:01:52 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Categories](
-	[CategoryID] [int] IDENTITY(1,1) NOT NULL,
-	[CategoryName] [nvarchar](100) NOT NULL,
-	[IsActive] [bit] NOT NULL,
-PRIMARY KEY CLUSTERED 
+
+/*=====================================================
+    Categories
+=====================================================*/
+
+CREATE TABLE Categories
 (
-	[CategoryID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+    CategoryID INT IDENTITY(1,1) PRIMARY KEY,
+
+    CategoryName NVARCHAR(100) NOT NULL,
+
+    IsActive BIT DEFAULT 1
+);
 GO
-/****** Object:  Table [dbo].[Foods]    Script Date: 29/06/2026 12:01:52 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Foods](
-	[FoodID] [int] IDENTITY(1,1) NOT NULL,
-	[FoodName] [nvarchar](100) NOT NULL,
-	[CategoryID] [int] NOT NULL,
-	[Price] [decimal](18, 0) NOT NULL,
-	[IsActive] [bit] NULL,
-PRIMARY KEY CLUSTERED 
+
+/*=====================================================
+    Foods
+=====================================================*/
+
+CREATE TABLE Foods
 (
-	[FoodID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+    FoodID INT IDENTITY(1,1) PRIMARY KEY,
+
+    FoodName NVARCHAR(100) NOT NULL,
+
+    CategoryID INT NOT NULL,
+
+    Price DECIMAL(18,0) NOT NULL,
+
+    IsActive BIT DEFAULT 1,
+
+    CONSTRAINT FK_Foods_Categories
+        FOREIGN KEY(CategoryID)
+        REFERENCES Categories(CategoryID)
+);
 GO
-/****** Object:  Table [dbo].[Roles]    Script Date: 29/06/2026 12:01:52 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Roles](
-	[RoleID] [int] NOT NULL,
-	[RoleName] [nvarchar](50) NOT NULL,
-PRIMARY KEY CLUSTERED 
+
+/*=====================================================
+    Bills
+=====================================================*/
+
+CREATE TABLE Bills
 (
-	[RoleID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
+    BillID INT IDENTITY(1,1) PRIMARY KEY,
+
+    TableID INT NOT NULL,
+
+    UserID INT NOT NULL,
+
+    CreatedDate DATETIME DEFAULT GETDATE(),
+
+    Status INT DEFAULT 0,
+
+    TotalAmount DECIMAL(18,0) DEFAULT 0,
+
+    PaidDate DATETIME NULL,
+
+    CONSTRAINT FK_Bills_CafeTables
+        FOREIGN KEY(TableID)
+        REFERENCES CafeTables(TableID),
+
+    CONSTRAINT FK_Bills_Users
+        FOREIGN KEY(UserID)
+        REFERENCES Users(UserID)
+);
 GO
-/****** Object:  Table [dbo].[Users]    Script Date: 29/06/2026 12:01:52 AM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Users](
-	[UserID] [int] IDENTITY(1,1) NOT NULL,
-	[UserName] [nvarchar](50) NOT NULL,
-	[Password] [nvarchar](100) NOT NULL,
-	[FullName] [nvarchar](100) NULL,
-	[RoleID] [int] NOT NULL,
-	[IsActive] [bit] NULL,
-PRIMARY KEY CLUSTERED 
+
+/*=====================================================
+    BillDetails
+=====================================================*/
+
+CREATE TABLE BillDetails
 (
-	[UserID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
-UNIQUE NONCLUSTERED 
-(
-	[UserName] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Index [UX_BillDetails]    Script Date: 29/06/2026 12:01:52 AM ******/
-CREATE UNIQUE NONCLUSTERED INDEX [UX_BillDetails] ON [dbo].[BillDetails]
-(
-	[BillID] ASC,
-	[FoodID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-GO
-ALTER TABLE [dbo].[Bills] ADD  DEFAULT (getdate()) FOR [CreatedDate]
-GO
-ALTER TABLE [dbo].[Bills] ADD  DEFAULT ((0)) FOR [Status]
-GO
-ALTER TABLE [dbo].[Bills] ADD  DEFAULT ((0)) FOR [TotalAmount]
-GO
-ALTER TABLE [dbo].[CafeTables] ADD  DEFAULT ((0)) FOR [Status]
-GO
-ALTER TABLE [dbo].[Categories] ADD  DEFAULT ((1)) FOR [IsActive]
-GO
-ALTER TABLE [dbo].[Foods] ADD  DEFAULT ((1)) FOR [IsActive]
-GO
-ALTER TABLE [dbo].[Users] ADD  DEFAULT ((1)) FOR [IsActive]
-GO
-ALTER TABLE [dbo].[BillDetails]  WITH CHECK ADD  CONSTRAINT [FK_BillDetails_Bills] FOREIGN KEY([BillID])
-REFERENCES [dbo].[Bills] ([BillID])
-GO
-ALTER TABLE [dbo].[BillDetails] CHECK CONSTRAINT [FK_BillDetails_Bills]
-GO
-ALTER TABLE [dbo].[BillDetails]  WITH CHECK ADD  CONSTRAINT [FK_BillDetails_Foods] FOREIGN KEY([FoodID])
-REFERENCES [dbo].[Foods] ([FoodID])
-GO
-ALTER TABLE [dbo].[BillDetails] CHECK CONSTRAINT [FK_BillDetails_Foods]
-GO
-ALTER TABLE [dbo].[CafeTables]  WITH CHECK ADD  CONSTRAINT [FK_CafeTables_Areas] FOREIGN KEY([AreaID])
-REFERENCES [dbo].[Areas] ([AreaID])
-GO
-ALTER TABLE [dbo].[CafeTables] CHECK CONSTRAINT [FK_CafeTables_Areas]
-GO
-ALTER TABLE [dbo].[Foods]  WITH CHECK ADD  CONSTRAINT [FK_Foods_Categories] FOREIGN KEY([CategoryID])
-REFERENCES [dbo].[Categories] ([CategoryID])
-GO
-ALTER TABLE [dbo].[Foods] CHECK CONSTRAINT [FK_Foods_Categories]
-GO
-ALTER TABLE [dbo].[Users]  WITH CHECK ADD  CONSTRAINT [FK_Users_Roles] FOREIGN KEY([RoleID])
-REFERENCES [dbo].[Roles] ([RoleID])
-GO
-ALTER TABLE [dbo].[Users] CHECK CONSTRAINT [FK_Users_Roles]
-GO
-USE [master]
-GO
-ALTER DATABASE [CafeManagement] SET  READ_WRITE 
+    BillDetailID INT IDENTITY(1,1) PRIMARY KEY,
+
+    BillID INT NOT NULL,
+
+    FoodID INT NOT NULL,
+
+    Quantity INT NOT NULL,
+
+    UnitPrice DECIMAL(18,0) NOT NULL,
+
+    Amount DECIMAL(18,0) NOT NULL,
+
+    CONSTRAINT FK_BillDetails_Bills
+        FOREIGN KEY(BillID)
+        REFERENCES Bills(BillID),
+
+    CONSTRAINT FK_BillDetails_Foods
+        FOREIGN KEY(FoodID)
+        REFERENCES Foods(FoodID)
+);
 GO
