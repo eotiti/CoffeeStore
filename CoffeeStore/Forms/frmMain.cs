@@ -52,17 +52,13 @@ namespace CoffeeStore.Forms
         //=========================================================================
         private void frmMain_Load(object sender, EventArgs e)
         {
-            // MessageBox.Show( CurrentUser.User.FullName);
+            
             lblCurrentUser.Text = CurrentUser.User.UserName;
             SetPermission();//set quyen
-
             if (CurrentUser.User == null)// chống mở form khi chưa set quyền và login
             {
-                MessageBox.Show(
-                    "Phiên đăng nhập không hợp lệ");
-
+                MessageBox.Show("Phiên đăng nhập không hợp lệ");
                 this.Close();
-
                 return;
             }
         }
@@ -74,14 +70,12 @@ namespace CoffeeStore.Forms
             frm.Dock=DockStyle.Fill;
             frm.Show();
         }
-
         private void menuLogout_Click(object sender, EventArgs e)
         {
             CurrentUser.User=null;
             frmLogin frm = new frmLogin();
             frm.Show();
             this.Hide();
-            //MessageBox.Show(CurrentUser.User.FullName);
         }
 
         private void menuCategory_Click(object sender, EventArgs e)
@@ -91,7 +85,6 @@ namespace CoffeeStore.Forms
            frm.Dock=DockStyle.Fill;
            frm.Show();
         }
-
         private void menuFood_Click(object sender, EventArgs e)
         {
             frmFood frm = new frmFood();
@@ -99,7 +92,6 @@ namespace CoffeeStore.Forms
             frm.Dock = DockStyle.Fill;
             frm.Show();
         }
-
         private void menuOrder_Click(object sender, EventArgs e)
         {
             frmOrder frm = new frmOrder();
