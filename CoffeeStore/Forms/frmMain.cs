@@ -99,5 +99,15 @@ namespace CoffeeStore.Forms
             frm.Dock= DockStyle.Fill;
             frm.Show();
         }
+
+        private void menuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+
+        }
+
+        private void menuAccount_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -29,42 +29,77 @@
         private void InitializeComponent()
         {
             this.menuStrip = new System.Windows.Forms.MenuStrip();
+            this.lblCurrentUser = new System.Windows.Forms.Label();
+            this.toolOrder = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuOrder = new System.Windows.Forms.ToolStripMenuItem();
+            this.giaoHàngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.menuArea = new System.Windows.Forms.ToolStripMenuItem();
             this.menuCategory = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFood = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolOrder = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuOrder = new System.Windows.Forms.ToolStripMenuItem();
             this.toolReport = new System.Windows.Forms.ToolStripMenuItem();
             this.menuWarehouse = new System.Windows.Forms.ToolStripMenuItem();
+            this.báoCáoXuấtnhậpTồnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.kIỂMKÊToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuManagment = new System.Windows.Forms.ToolStripMenuItem();
             this.menuAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.mậtKhẩuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lblCurrentUser = new System.Windows.Forms.Label();
             this.menuLogout = new System.Windows.Forms.ToolStripMenuItem();
-            this.giaoHàngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.báoCáoXuấtnhậpTồnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.kIỂMKÊToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip
             // 
-            this.menuStrip.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.menuStrip.BackColor = System.Drawing.Color.Gainsboro;
             this.menuStrip.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuStrip.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolAccount,
             this.toolOrder,
+            this.toolAccount,
             this.toolReport,
             this.menuManagment});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip.Size = new System.Drawing.Size(209, 1055);
+            this.menuStrip.Size = new System.Drawing.Size(227, 1055);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip1";
+            this.menuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip_ItemClicked);
+            // 
+            // lblCurrentUser
+            // 
+            this.lblCurrentUser.AutoSize = true;
+            this.lblCurrentUser.Location = new System.Drawing.Point(12, 288);
+            this.lblCurrentUser.Name = "lblCurrentUser";
+            this.lblCurrentUser.Size = new System.Drawing.Size(64, 25);
+            this.lblCurrentUser.TabIndex = 2;
+            this.lblCurrentUser.Text = "label1";
+            // 
+            // toolOrder
+            // 
+            this.toolOrder.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuOrder,
+            this.giaoHàngToolStripMenuItem});
+            this.toolOrder.Image = global::CoffeeStore.Properties.Resources.buy;
+            this.toolOrder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.toolOrder.Name = "toolOrder";
+            this.toolOrder.Size = new System.Drawing.Size(214, 45);
+            this.toolOrder.Text = "Bán hàng";
+            this.toolOrder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // menuOrder
+            // 
+            this.menuOrder.Name = "menuOrder";
+            this.menuOrder.Size = new System.Drawing.Size(246, 46);
+            this.menuOrder.Text = "Gọi món";
+            this.menuOrder.Click += new System.EventHandler(this.menuOrder_Click);
+            // 
+            // giaoHàngToolStripMenuItem
+            // 
+            this.giaoHàngToolStripMenuItem.Name = "giaoHàngToolStripMenuItem";
+            this.giaoHàngToolStripMenuItem.Size = new System.Drawing.Size(246, 46);
+            this.giaoHàngToolStripMenuItem.Text = "Giao hàng";
             // 
             // toolAccount
             // 
@@ -72,8 +107,10 @@
             this.menuArea,
             this.menuCategory,
             this.menuFood});
+            this.toolAccount.Image = global::CoffeeStore.Properties.Resources.briefcase;
+            this.toolAccount.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolAccount.Name = "toolAccount";
-            this.toolAccount.Size = new System.Drawing.Size(194, 45);
+            this.toolAccount.Size = new System.Drawing.Size(214, 45);
             this.toolAccount.Text = "Quản trị";
             this.toolAccount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -98,31 +135,16 @@
             this.menuFood.Text = "Food-Drink";
             this.menuFood.Click += new System.EventHandler(this.menuFood_Click);
             // 
-            // toolOrder
-            // 
-            this.toolOrder.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuOrder,
-            this.giaoHàngToolStripMenuItem});
-            this.toolOrder.Name = "toolOrder";
-            this.toolOrder.Size = new System.Drawing.Size(194, 45);
-            this.toolOrder.Text = "Bán hàng";
-            this.toolOrder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // menuOrder
-            // 
-            this.menuOrder.Name = "menuOrder";
-            this.menuOrder.Size = new System.Drawing.Size(225, 46);
-            this.menuOrder.Text = "Gọi món";
-            this.menuOrder.Click += new System.EventHandler(this.menuOrder_Click);
-            // 
             // toolReport
             // 
             this.toolReport.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.menuWarehouse,
             this.báoCáoXuấtnhậpTồnToolStripMenuItem,
             this.kIỂMKÊToolStripMenuItem});
+            this.toolReport.Image = global::CoffeeStore.Properties.Resources._20_Report;
+            this.toolReport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolReport.Name = "toolReport";
-            this.toolReport.Size = new System.Drawing.Size(192, 45);
+            this.toolReport.Size = new System.Drawing.Size(214, 45);
             this.toolReport.Text = "Báo cáo/Kho";
             this.toolReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -131,51 +153,6 @@
             this.menuWarehouse.Name = "menuWarehouse";
             this.menuWarehouse.Size = new System.Drawing.Size(240, 46);
             this.menuWarehouse.Text = "Nhập kho";
-            // 
-            // menuManagment
-            // 
-            this.menuManagment.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuAccount,
-            this.mậtKhẩuToolStripMenuItem,
-            this.menuLogout});
-            this.menuManagment.Name = "menuManagment";
-            this.menuManagment.Size = new System.Drawing.Size(198, 45);
-            this.menuManagment.Text = "Tài khoản";
-            this.menuManagment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // menuAccount
-            // 
-            this.menuAccount.Name = "menuAccount";
-            this.menuAccount.Size = new System.Drawing.Size(245, 46);
-            this.menuAccount.Text = "Thông tin";
-            // 
-            // mậtKhẩuToolStripMenuItem
-            // 
-            this.mậtKhẩuToolStripMenuItem.Name = "mậtKhẩuToolStripMenuItem";
-            this.mậtKhẩuToolStripMenuItem.Size = new System.Drawing.Size(245, 46);
-            this.mậtKhẩuToolStripMenuItem.Text = "Mật khẩu";
-            // 
-            // lblCurrentUser
-            // 
-            this.lblCurrentUser.AutoSize = true;
-            this.lblCurrentUser.Location = new System.Drawing.Point(12, 288);
-            this.lblCurrentUser.Name = "lblCurrentUser";
-            this.lblCurrentUser.Size = new System.Drawing.Size(64, 25);
-            this.lblCurrentUser.TabIndex = 2;
-            this.lblCurrentUser.Text = "label1";
-            // 
-            // menuLogout
-            // 
-            this.menuLogout.Name = "menuLogout";
-            this.menuLogout.Size = new System.Drawing.Size(245, 46);
-            this.menuLogout.Text = "Đăng xuất";
-            this.menuLogout.Click += new System.EventHandler(this.menuLogout_Click);
-            // 
-            // giaoHàngToolStripMenuItem
-            // 
-            this.giaoHàngToolStripMenuItem.Name = "giaoHàngToolStripMenuItem";
-            this.giaoHàngToolStripMenuItem.Size = new System.Drawing.Size(246, 46);
-            this.giaoHàngToolStripMenuItem.Text = "Giao hàng";
             // 
             // báoCáoXuấtnhậpTồnToolStripMenuItem
             // 
@@ -188,6 +165,42 @@
             this.kIỂMKÊToolStripMenuItem.Name = "kIỂMKÊToolStripMenuItem";
             this.kIỂMKÊToolStripMenuItem.Size = new System.Drawing.Size(240, 46);
             this.kIỂMKÊToolStripMenuItem.Text = "KIỂM KÊ";
+            // 
+            // menuManagment
+            // 
+            this.menuManagment.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuAccount,
+            this.mậtKhẩuToolStripMenuItem,
+            this.menuLogout});
+            this.menuManagment.Image = global::CoffeeStore.Properties.Resources.user_icon;
+            this.menuManagment.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.menuManagment.Name = "menuManagment";
+            this.menuManagment.Size = new System.Drawing.Size(214, 45);
+            this.menuManagment.Text = "Tài khoản";
+            this.menuManagment.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // menuAccount
+            // 
+            this.menuAccount.Image = global::CoffeeStore.Properties.Resources.banner;
+            this.menuAccount.Name = "menuAccount";
+            this.menuAccount.Size = new System.Drawing.Size(245, 46);
+            this.menuAccount.Text = "Thông tin";
+            this.menuAccount.Click += new System.EventHandler(this.menuAccount_Click);
+            // 
+            // mậtKhẩuToolStripMenuItem
+            // 
+            this.mậtKhẩuToolStripMenuItem.Image = global::CoffeeStore.Properties.Resources.logo_login;
+            this.mậtKhẩuToolStripMenuItem.Name = "mậtKhẩuToolStripMenuItem";
+            this.mậtKhẩuToolStripMenuItem.Size = new System.Drawing.Size(245, 46);
+            this.mậtKhẩuToolStripMenuItem.Text = "Mật khẩu";
+            // 
+            // menuLogout
+            // 
+            this.menuLogout.Image = global::CoffeeStore.Properties.Resources.images;
+            this.menuLogout.Name = "menuLogout";
+            this.menuLogout.Size = new System.Drawing.Size(245, 46);
+            this.menuLogout.Text = "Đăng xuất";
+            this.menuLogout.Click += new System.EventHandler(this.menuLogout_Click);
             // 
             // frmMain
             // 
@@ -223,13 +236,13 @@
         private System.Windows.Forms.ToolStripMenuItem menuArea;
         private System.Windows.Forms.ToolStripMenuItem menuCategory;
         private System.Windows.Forms.ToolStripMenuItem menuOrder;
-        private System.Windows.Forms.ToolStripMenuItem menuWarehouse;
         private System.Windows.Forms.ToolStripMenuItem menuAccount;
         private System.Windows.Forms.Label lblCurrentUser;
         private System.Windows.Forms.ToolStripMenuItem menuFood;
         private System.Windows.Forms.ToolStripMenuItem mậtKhẩuToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuLogout;
         private System.Windows.Forms.ToolStripMenuItem giaoHàngToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuWarehouse;
         private System.Windows.Forms.ToolStripMenuItem báoCáoXuấtnhậpTồnToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kIỂMKÊToolStripMenuItem;
     }
