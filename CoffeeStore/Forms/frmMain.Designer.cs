@@ -90,6 +90,7 @@
             // 
             // menuOrder
             // 
+            this.menuOrder.Image = global::CoffeeStore.Properties.Resources.pencil;
             this.menuOrder.Name = "menuOrder";
             this.menuOrder.Size = new System.Drawing.Size(246, 46);
             this.menuOrder.Text = "Gọi món";
@@ -116,6 +117,7 @@
             // 
             // menuArea
             // 
+            this.menuArea.Image = global::CoffeeStore.Properties.Resources._02_Data_Center;
             this.menuArea.Name = "menuArea";
             this.menuArea.Size = new System.Drawing.Size(276, 46);
             this.menuArea.Text = "Khu vực-Bàn";
@@ -123,6 +125,7 @@
             // 
             // menuCategory
             // 
+            this.menuCategory.Image = global::CoffeeStore.Properties.Resources._12_Investigation;
             this.menuCategory.Name = "menuCategory";
             this.menuCategory.Size = new System.Drawing.Size(276, 46);
             this.menuCategory.Text = "Category";
@@ -130,6 +133,7 @@
             // 
             // menuFood
             // 
+            this.menuFood.Image = global::CoffeeStore.Properties.Resources._17_Reusable_Bottle_;
             this.menuFood.Name = "menuFood";
             this.menuFood.Size = new System.Drawing.Size(276, 46);
             this.menuFood.Text = "Food-Drink";
@@ -150,18 +154,22 @@
             // 
             // menuWarehouse
             // 
+            this.menuWarehouse.Image = global::CoffeeStore.Properties.Resources._02_Data_Center;
+            this.menuWarehouse.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.menuWarehouse.Name = "menuWarehouse";
             this.menuWarehouse.Size = new System.Drawing.Size(240, 46);
             this.menuWarehouse.Text = "Nhập kho";
             // 
             // báoCáoXuấtnhậpTồnToolStripMenuItem
             // 
+            this.báoCáoXuấtnhậpTồnToolStripMenuItem.Image = global::CoffeeStore.Properties.Resources._11_Analytics;
             this.báoCáoXuấtnhậpTồnToolStripMenuItem.Name = "báoCáoXuấtnhậpTồnToolStripMenuItem";
             this.báoCáoXuấtnhậpTồnToolStripMenuItem.Size = new System.Drawing.Size(240, 46);
             this.báoCáoXuấtnhậpTồnToolStripMenuItem.Text = "BC X-N-T";
             // 
             // kIỂMKÊToolStripMenuItem
             // 
+            this.kIỂMKÊToolStripMenuItem.Image = global::CoffeeStore.Properties.Resources.statistics;
             this.kIỂMKÊToolStripMenuItem.Name = "kIỂMKÊToolStripMenuItem";
             this.kIỂMKÊToolStripMenuItem.Size = new System.Drawing.Size(240, 46);
             this.kIỂMKÊToolStripMenuItem.Text = "KIỂM KÊ";

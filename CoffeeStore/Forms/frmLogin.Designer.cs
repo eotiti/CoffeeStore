@@ -42,7 +42,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(278, 101);
+            this.label1.Location = new System.Drawing.Point(256, 100);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(124, 29);
             this.label1.TabIndex = 0;
@@ -73,7 +73,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(278, 158);
+            this.label2.Location = new System.Drawing.Point(256, 157);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(120, 29);
             this.label2.TabIndex = 2;
@@ -88,7 +88,7 @@
             this.btn_login.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btn_login.Name = "btn_login";
             this.btn_login.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.btn_login.Size = new System.Drawing.Size(123, 46);
+            this.btn_login.Size = new System.Drawing.Size(155, 60);
             this.btn_login.TabIndex = 4;
             this.btn_login.Text = "Login";
             this.btn_login.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage;
@@ -111,10 +111,10 @@
             // pictureBox1
             // 
             this.pictureBox1.Image = global::CoffeeStore.Properties.Resources.banner;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 29);
+            this.pictureBox1.Location = new System.Drawing.Point(12, 51);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(260, 260);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.Size = new System.Drawing.Size(238, 228);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 5;
             this.pictureBox1.TabStop = false;
             // 
