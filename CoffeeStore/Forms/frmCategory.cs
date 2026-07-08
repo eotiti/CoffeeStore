@@ -17,6 +17,7 @@ namespace CoffeeStore.Forms
         public frmCategory()
         {
             InitializeComponent();
+            AutoScaleMode=AutoScaleMode.Dpi;
         }
         private int selectedCategoryID = 0;
         private CategoryBUS categoryBUS = new CategoryBUS();

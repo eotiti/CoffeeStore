@@ -21,6 +21,7 @@ namespace CoffeeStore.Forms
         public frmOrder()
         {
             InitializeComponent();
+            AutoScaleMode = AutoScaleMode.Dpi;
         }
         
         

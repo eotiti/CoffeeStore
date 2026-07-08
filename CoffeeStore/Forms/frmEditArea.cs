@@ -32,6 +32,7 @@ namespace CoffeeStore.Forms
         {
             AcceptButton = btnSave;
             txtAreaName.Focus();
+            AutoScaleMode=AutoScaleMode.Dpi;
             if (_area != null)
             {
                 txtAreaName.Text =

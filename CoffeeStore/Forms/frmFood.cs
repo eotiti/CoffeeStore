@@ -17,6 +17,7 @@ namespace CoffeeStore.Forms
         public frmFood()
         {
             InitializeComponent();
+            AutoScaleMode = AutoScaleMode.Dpi;
         }
         //============================================================
         private FoodBUS foodBUS = new FoodBUS();

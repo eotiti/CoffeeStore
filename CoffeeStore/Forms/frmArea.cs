@@ -19,6 +19,7 @@ namespace CoffeeStore.Forms
         public frmArea()
         {
             InitializeComponent();
+            AutoScaleMode = AutoScaleMode.Dpi;
         }
 
         //=====================LOAD KHU VỰC=================

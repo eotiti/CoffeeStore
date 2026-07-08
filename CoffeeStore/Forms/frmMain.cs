@@ -49,6 +49,40 @@ namespace CoffeeStore.Forms
                     break;
             }
         }
+        private Form currentForm;
+        private void OpenForm(Form childForm)
+        {
+            if (currentForm != null)
+            {
+                currentForm.Close();
+            }
+
+            currentForm = childForm;
+
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+
+            pnlMain.Controls.Clear();
+            pnlMain.Controls.Add(childForm);
+
+            childForm.Show();
+        }
+        private void OpenForm<T>() where T : Form, new()
+        {
+            foreach (Form frm in MdiChildren)
+            {
+                if (frm is T)
+                {
+                    frm.Activate();
+                    return;
+                }
+            }
+
+            T child = new T();
+            child.MdiParent = this;
+            child.Show();
+        }
         //=========================================================================
         private void frmMain_Load(object sender, EventArgs e)
         {
@@ -65,49 +99,33 @@ namespace CoffeeStore.Forms
 
         private void menuArea_Click(object sender, EventArgs e)
         {
-            frmArea frm = new frmArea();
-            frm.MdiParent = this;
-            frm.Dock=DockStyle.Fill;
-            frm.Show();
+            //OpenForm<frmArea>();
+            OpenForm(new frmArea());
         }
-        private void menuLogout_Click(object sender, EventArgs e)
-        {
-            CurrentUser.User=null;
-            frmLogin frm = new frmLogin();
-            frm.Show();
-            this.Hide();
-        }
-
         private void menuCategory_Click(object sender, EventArgs e)
         {
-           frmCategory frm = new frmCategory();
-           frm.MdiParent = this;
-           frm.Dock=DockStyle.Fill;
-           frm.Show();
+            //OpenForm<frmCategory>();
+            OpenForm(new frmCategory());
         }
         private void menuFood_Click(object sender, EventArgs e)
         {
-            frmFood frm = new frmFood();
-            frm.MdiParent= this;
-            frm.Dock = DockStyle.Fill;
-            frm.Show();
+            //OpenForm<frmFood>();
+            OpenForm(new frmFood());
         }
         private void menuOrder_Click(object sender, EventArgs e)
         {
-            frmOrder frm = new frmOrder();
-            frm.MdiParent = this;
-            frm.Dock= DockStyle.Fill;
-            frm.Show();
+            OpenForm(new frmOrder());
         }
-
-        private void menuStrip_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
-        {
-
-        }
-
         private void menuAccount_Click(object sender, EventArgs e)
         {
-
+            OpenForm (new frmAccount());
+        }
+        private void menuLogout_Click(object sender, EventArgs e)
+        {
+            CurrentUser.User = null;
+            frmLogin frm = new frmLogin();
+            frm.Show();
+            this.Hide();
         }
     }
 }

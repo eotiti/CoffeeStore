@@ -47,6 +47,7 @@ namespace CoffeeStore.Forms
 
         private void frmEditTable_Load(object sender, EventArgs e)
         {
+            AutoScaleMode = AutoScaleMode.Dpi;
             LoadAreas();
 
             cboStatus.Items.Add("Empty");               //Empty: status = 0 ;   Occupied: status = 1

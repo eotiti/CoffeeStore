@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.menuStrip = new System.Windows.Forms.MenuStrip();
-            this.lblCurrentUser = new System.Windows.Forms.Label();
             this.toolOrder = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOrder = new System.Windows.Forms.ToolStripMenuItem();
             this.giaoHàngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -45,6 +44,8 @@
             this.menuAccount = new System.Windows.Forms.ToolStripMenuItem();
             this.mậtKhẩuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLogout = new System.Windows.Forms.ToolStripMenuItem();
+            this.lblCurrentUser = new System.Windows.Forms.Label();
+            this.pnlMain = new System.Windows.Forms.Panel();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -65,16 +66,6 @@
             this.menuStrip.Size = new System.Drawing.Size(227, 1055);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip1";
-            this.menuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip_ItemClicked);
-            // 
-            // lblCurrentUser
-            // 
-            this.lblCurrentUser.AutoSize = true;
-            this.lblCurrentUser.Location = new System.Drawing.Point(12, 288);
-            this.lblCurrentUser.Name = "lblCurrentUser";
-            this.lblCurrentUser.Size = new System.Drawing.Size(64, 25);
-            this.lblCurrentUser.TabIndex = 2;
-            this.lblCurrentUser.Text = "label1";
             // 
             // toolOrder
             // 
@@ -210,11 +201,29 @@
             this.menuLogout.Text = "Đăng xuất";
             this.menuLogout.Click += new System.EventHandler(this.menuLogout_Click);
             // 
+            // lblCurrentUser
+            // 
+            this.lblCurrentUser.AutoSize = true;
+            this.lblCurrentUser.Location = new System.Drawing.Point(12, 288);
+            this.lblCurrentUser.Name = "lblCurrentUser";
+            this.lblCurrentUser.Size = new System.Drawing.Size(64, 25);
+            this.lblCurrentUser.TabIndex = 2;
+            this.lblCurrentUser.Text = "label1";
+            // 
+            // pnlMain
+            // 
+            this.pnlMain.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pnlMain.Location = new System.Drawing.Point(227, 0);
+            this.pnlMain.Name = "pnlMain";
+            this.pnlMain.Size = new System.Drawing.Size(1697, 1055);
+            this.pnlMain.TabIndex = 4;
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1924, 1055);
+            this.Controls.Add(this.pnlMain);
             this.Controls.Add(this.lblCurrentUser);
             this.Controls.Add(this.menuStrip);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -253,5 +262,6 @@
         private System.Windows.Forms.ToolStripMenuItem menuWarehouse;
         private System.Windows.Forms.ToolStripMenuItem báoCáoXuấtnhậpTồnToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem kIỂMKÊToolStripMenuItem;
+        private System.Windows.Forms.Panel pnlMain;
     }
 }
