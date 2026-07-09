@@ -18,5 +18,9 @@ namespace CoffeeStore.BUS
         {
             return userDAL.Login(userName, password);
         }
+        public DataTable GetAll()
+        {
+            return userDAL.GetAll();
+        }
     }
 }

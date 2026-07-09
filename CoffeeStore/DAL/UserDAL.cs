@@ -13,6 +13,17 @@ namespace CoffeeStore.DAL
 {
     public class UserDAL : DBConnection
     {
+        public DataTable GetAll()
+        {
+            string sql = @"SELECT * FROM Users";
+            DataTable dt = new DataTable();
+            using (SqlConnection conn = GetConnection())
+            {
+                SqlDataAdapter da = new SqlDataAdapter(sql, conn);
+                da.Fill(dt);
+            }
+            return dt;
+        }
         public UserDTO Login(string userName, string password)
         {
             string sql = @"

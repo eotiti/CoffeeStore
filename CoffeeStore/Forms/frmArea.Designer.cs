@@ -49,7 +49,7 @@
             this.flpArea.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.flpArea.Location = new System.Drawing.Point(6, 33);
             this.flpArea.Name = "flpArea";
-            this.flpArea.Size = new System.Drawing.Size(689, 447);
+            this.flpArea.Size = new System.Drawing.Size(832, 773);
             this.flpArea.TabIndex = 0;
             // 
             // groupBox1
@@ -61,7 +61,7 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(713, 666);
+            this.groupBox1.Size = new System.Drawing.Size(844, 936);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Khu vực";
@@ -69,18 +69,18 @@
             // btnDeleteArea
             // 
             this.btnDeleteArea.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteArea.Location = new System.Drawing.Point(6, 582);
+            this.btnDeleteArea.Location = new System.Drawing.Point(117, 872);
             this.btnDeleteArea.Name = "btnDeleteArea";
-            this.btnDeleteArea.Size = new System.Drawing.Size(97, 35);
+            this.btnDeleteArea.Size = new System.Drawing.Size(105, 47);
             this.btnDeleteArea.TabIndex = 4;
             this.btnDeleteArea.UseVisualStyleBackColor = true;
             // 
             // btnAddArea
             // 
             this.btnAddArea.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddArea.Location = new System.Drawing.Point(6, 500);
+            this.btnAddArea.Location = new System.Drawing.Point(6, 819);
             this.btnAddArea.Name = "btnAddArea";
-            this.btnAddArea.Size = new System.Drawing.Size(97, 35);
+            this.btnAddArea.Size = new System.Drawing.Size(105, 47);
             this.btnAddArea.TabIndex = 2;
             this.btnAddArea.Text = "Thêm";
             this.btnAddArea.UseVisualStyleBackColor = true;
@@ -89,9 +89,9 @@
             // btnUpdateArea
             // 
             this.btnUpdateArea.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnUpdateArea.Location = new System.Drawing.Point(6, 541);
+            this.btnUpdateArea.Location = new System.Drawing.Point(117, 819);
             this.btnUpdateArea.Name = "btnUpdateArea";
-            this.btnUpdateArea.Size = new System.Drawing.Size(97, 35);
+            this.btnUpdateArea.Size = new System.Drawing.Size(105, 47);
             this.btnUpdateArea.TabIndex = 3;
             this.btnUpdateArea.Text = "Sửa";
             this.btnUpdateArea.UseVisualStyleBackColor = true;
@@ -104,9 +104,9 @@
             this.groupBox2.Controls.Add(this.btnEditTable);
             this.groupBox2.Controls.Add(this.flpTable);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox2.Location = new System.Drawing.Point(731, 12);
+            this.groupBox2.Location = new System.Drawing.Point(862, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(655, 666);
+            this.groupBox2.Size = new System.Drawing.Size(909, 936);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Bàn";
@@ -115,18 +115,18 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(535, 580);
+            this.button1.Location = new System.Drawing.Point(742, 872);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(114, 33);
+            this.button1.Size = new System.Drawing.Size(114, 41);
             this.button1.TabIndex = 4;
             this.button1.UseVisualStyleBackColor = true;
             // 
             // btnAddTable
             // 
             this.btnAddTable.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddTable.Location = new System.Drawing.Point(535, 502);
+            this.btnAddTable.Location = new System.Drawing.Point(622, 824);
             this.btnAddTable.Name = "btnAddTable";
-            this.btnAddTable.Size = new System.Drawing.Size(114, 33);
+            this.btnAddTable.Size = new System.Drawing.Size(114, 41);
             this.btnAddTable.TabIndex = 2;
             this.btnAddTable.Text = "Thêm";
             this.btnAddTable.UseVisualStyleBackColor = true;
@@ -135,9 +135,9 @@
             // btnEditTable
             // 
             this.btnEditTable.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEditTable.Location = new System.Drawing.Point(535, 541);
+            this.btnEditTable.Location = new System.Drawing.Point(742, 824);
             this.btnEditTable.Name = "btnEditTable";
-            this.btnEditTable.Size = new System.Drawing.Size(114, 33);
+            this.btnEditTable.Size = new System.Drawing.Size(114, 41);
             this.btnEditTable.TabIndex = 3;
             this.btnEditTable.Text = "Sửa";
             this.btnEditTable.UseVisualStyleBackColor = true;
@@ -148,14 +148,14 @@
             this.flpTable.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.flpTable.Location = new System.Drawing.Point(6, 33);
             this.flpTable.Name = "flpTable";
-            this.flpTable.Size = new System.Drawing.Size(643, 447);
+            this.flpTable.Size = new System.Drawing.Size(897, 773);
             this.flpTable.TabIndex = 0;
             // 
             // frmArea
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1398, 690);
+            this.ClientSize = new System.Drawing.Size(1783, 963);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "frmArea";

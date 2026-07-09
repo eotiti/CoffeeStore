@@ -20,7 +20,6 @@ namespace CoffeeStore.DAL
                 SqlDataAdapter da =new SqlDataAdapter(sql, conn);
                 da.Fill(dt);
             }
-
             return dt;
         }
         public bool Insert(AreaDTO area)

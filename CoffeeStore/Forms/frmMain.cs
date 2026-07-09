@@ -31,21 +31,16 @@ namespace CoffeeStore.Forms
             switch (CurrentUser.User.RoleName)
             {
                 case "Admin":// neu la Admin thi Full quyen khong can An quyen
-
                     break;
 
                 case "User":// neu la Nhan vien thi.....
-
-                    menuAccount.Visible = false;
-
+                    toolManager.Visible = false;
+                    toolReport.Visible = false;
                     break;
 
                 case "Customer":// Neu la khach hang thi.....
-
                     menuAccount.Visible = false;
-
                     menuWarehouse.Visible = false;
-
                     break;
             }
         }
@@ -56,7 +51,6 @@ namespace CoffeeStore.Forms
             {
                 currentForm.Close();
             }
-
             currentForm = childForm;
 
             childForm.TopLevel = false;
@@ -78,7 +72,6 @@ namespace CoffeeStore.Forms
                     return;
                 }
             }
-
             T child = new T();
             child.MdiParent = this;
             child.Show();
@@ -86,8 +79,7 @@ namespace CoffeeStore.Forms
         //=========================================================================
         private void frmMain_Load(object sender, EventArgs e)
         {
-            
-            lblCurrentUser.Text =" Xin chào: "+ CurrentUser.User.UserName;
+            toolCurrentUser.Text= " Xin chào: " + CurrentUser.User.UserName;            
             SetPermission();//set quyen
             if (CurrentUser.User == null)// chống mở form khi chưa set quyền và login
             {
@@ -96,7 +88,6 @@ namespace CoffeeStore.Forms
                 return;
             }
         }
-
         private void menuArea_Click(object sender, EventArgs e)
         {
             //OpenForm<frmArea>();
@@ -126,6 +117,10 @@ namespace CoffeeStore.Forms
             frmLogin frm = new frmLogin();
             frm.Show();
             this.Hide();
+        }
+        private void menuUser_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmUser()) ;
         }
     }
 }
