@@ -2,9 +2,10 @@
 
 # \-Bài tập C#.NET Windows Form 
 
-# Ứng dụng được xây dựng cấu trúc theo lớp (Layers) dựa trên các Controls cơ bản như Button, panel, textbox,v.v... chủ yếu thiên hướng về Giáo dục nhưng vẫn dựa trên Logic phần mềm bán hàng thực tế.
+# Ứng dụng được xây dựng cấu trúc theo lớp (Layers) dựa trên các Controls cơ bản như Button, panel, textbox,v.v... chủ yếu thiên hướng về Hướng dẫn làm quen nhưng vẫn dựa trên Logic phần mềm bán hàng thực tế.
 
-# Lưu ý: vì đây là phần mềm ví dụ để nghiên cứu và làm quen với các Cấu trúc, Controls, toolbox của Visual Studio nên một số tính năng sẽ không như mong muốn nhằm làm rõ cách hoạt động của Controls đó 
+# Lưu ý: vì đây là phần mềm ví dụ để nghiên cứu và làm quen với các Cấu trúc, Controls, toolbox của Visual Studio nên một số tính năng sẽ không như mong muốn nhằm làm rõ cách hoạt động của Controls đó .
+P/S: Hiện tại ứng dụng chỉ làm được các bước cơ bản: Đăng nhập -> kiểm tra quyền -> trang chủ -> Thêm-sửa-xoá -> đăng xuất 
 
 # ===-HƯỚNG DẪN-===
 
