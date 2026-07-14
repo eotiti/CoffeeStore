@@ -59,6 +59,20 @@ namespace CoffeeStore.DAL
                 return rows > 0;
             }
         }
+        public bool Delete(int billID)
+        {
+            string query = "DELETE FROM Bills WHERE BillID = @BillID";
+
+            using (SqlConnection conn = GetConnection())
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@BillID", billID);
+
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
 
     }
 }

@@ -268,18 +268,46 @@ namespace CoffeeStore.Forms
 
         private void btnDeleteFood_Click(object sender, EventArgs e)
         {
-            if (selectedBillDetailID == 0)
+            if (selectedBillDetail == null)
             {
-                MessageBox.Show("Vui lòng chọn món");
+                MessageBox.Show("Vui lòng chọn món.");
                 return;
             }
 
-            if (billDetailBUS.Delete(selectedBillDetailID))
+            DialogResult result = MessageBox.Show("Bạn có chắc muốn xóa món này?","Xác nhận",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            if (result == DialogResult.No)
             {
-                BillDTO bill = billBUS.GetOpenBillByTable( selectedTable.TableID);
-                LoadBill(bill.BillID);
-                selectedBillDetailID = 0;
+                return;
             }
+            if (!billDetailBUS.Delete(selectedBillDetail.BillDetailID))
+            {
+                MessageBox.Show("Xóa thất bại.");
+                return;
+            }
+
+            BillDTO bill = billBUS.GetOpenBillByTable(selectedTable.TableID);
+
+            if (bill != null)
+            {
+                if (billDetailBUS.CountByBill(bill.BillID) == 0)
+                {
+                    billBUS.Delete(bill.BillID);
+
+                    tableBUS.UpdateStatus(selectedTable.TableID, TableStatus.Empty);
+
+                    dgvBill.DataSource = null;
+                    lblSum.Text = "Tổng tiền: 0 VNĐ";
+                }
+                else
+                {
+                    LoadBill(bill.BillID);
+                }
+            }
+
+            RefreshTables();
+
+            selectedBillDetail = null;
+
         }
         private BillDetailDTO selectedBillDetail = null;
         private void btnPlus_Click(object sender, EventArgs e)
@@ -303,10 +331,29 @@ namespace CoffeeStore.Forms
                 MessageBox.Show("Vui lòng chọn món.");
                 return;
             }
+            BillDTO bill = billBUS.GetOpenBillByTable(selectedTable.TableID);
             int quantity = selectedBillDetail.Quantity - 1;
             if (quantity <= 0)
             {
+
                 billDetailBUS.Delete(selectedBillDetail.BillDetailID);
+                if (bill != null)
+                {
+                    if (billDetailBUS.CountByBill(bill.BillID) == 0)
+                    {
+                        billBUS.Delete(bill.BillID);
+                        tableBUS.UpdateStatus(selectedTable.TableID, TableStatus.Empty);
+
+                        dgvBill.DataSource = null;
+                        lblSum.Text = "Tổng tiền: 0 VNĐ";
+                        currentTotal = 0;
+
+                        RefreshTables();
+
+                        selectedBillDetail = null;
+                        return;
+                    }
+                }
 
                 selectedBillDetail = null;
             }
@@ -318,7 +365,13 @@ namespace CoffeeStore.Forms
 
                 selectedBillDetail = billDetailBUS.GetByID(selectedBillDetail.BillDetailID);
             }
-            LoadBill(selectedBillDetail?.BillID ?? billBUS.GetOpenBillByTable(selectedTable.TableID).BillID);
+            
+            if (bill != null)
+            {
+                LoadBill(bill.BillID);
+            }
+
+            RefreshTables();
         }
 
         private void btnPayment_Click(object sender, EventArgs e)

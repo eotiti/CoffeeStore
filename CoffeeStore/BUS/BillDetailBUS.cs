@@ -44,5 +44,9 @@ namespace CoffeeStore.BUS
         {
             return dal.GetByID(billDetailID);
         }
+        public int CountByBill(int billID)
+        {
+            return dal.CountByBill(billID);
+        }
     }
 }

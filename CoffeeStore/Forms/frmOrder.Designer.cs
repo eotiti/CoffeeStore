@@ -221,7 +221,6 @@
             this.btnDeleteFood.TabIndex = 2;
             this.btnDeleteFood.Text = "Xoá";
             this.btnDeleteFood.UseVisualStyleBackColor = true;
-            this.btnDeleteFood.Visible = false;
             this.btnDeleteFood.Click += new System.EventHandler(this.btnDeleteFood_Click);
             // 
             // groupBox3

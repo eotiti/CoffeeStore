@@ -130,5 +130,19 @@ namespace CoffeeStore.DAL
                 return detail;
             }
         }
+        public int CountByBill(int billID)
+        {
+            string query = "SELECT COUNT(*) FROM BillDetails WHERE BillID = @BillID";
+
+            using (SqlConnection conn = GetConnection())
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(query, conn);
+                cmd.Parameters.AddWithValue("@BillID", billID);
+
+                return Convert.ToInt32(cmd.ExecuteScalar());
+            }
+        }
     }
 }
