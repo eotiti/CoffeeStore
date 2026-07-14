@@ -1,4 +1,4 @@
-﻿CREATE DATABASE CoffeeManagement;
+﻿CREATE DATABASE CafeManagement;
 GO
 
 USE CoffeeManagement;

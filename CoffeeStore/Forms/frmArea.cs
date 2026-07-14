@@ -35,38 +35,26 @@ namespace CoffeeStore.Forms
             foreach (DataRow row in dt.Rows)
             {
                 Button btn = new Button();
-
                 btn.Width = 180;
                 btn.Height = 100;
-
                 btn.Margin = new Padding(10);
-
                 btn.FlatStyle = FlatStyle.Flat;
-
                 btn.Font = new Font("Segoe UI", 12, FontStyle.Bold);
-
                 btn.Text = row["AreaName"].ToString();
                 toolTip1.SetToolTip(btn, row["Description"].ToString());
-
                 btn.Tag = row["AreaID"];
-
                 btn.Click += Area_Click;
-
                 flpArea.Controls.Add(btn);
             }
         }
         private void Area_Click(object sender, EventArgs e)//su kien click Ô khu vực
         {
-
             if (selectedButton != null)
             {
                 selectedButton.BackColor = SystemColors.Control;
             }
-
             selectedButton = (Button)sender;
-
             selectedButton.BackColor = Color.LightBlue;
-
             selectedAreaID = Convert.ToInt32(selectedButton.Tag);
             groupBox2.Visible = true;
             LoadTables(selectedAreaID);
@@ -79,9 +67,7 @@ namespace CoffeeStore.Forms
         private void LoadTables(int areaID)
         {
             flpTable.Controls.Clear();
-
             List<TableDTO> tables = tableBUS.GetAllByAreaID(areaID);
-
             foreach (TableDTO table in tables)
             {
                 Button btn = new Button();
@@ -98,16 +84,13 @@ namespace CoffeeStore.Forms
                 }
                 else if (table.Status == 1)
                 {
-
                     btn.BackColor = Color.OrangeRed;
                 }
                 else if (table.Status == 2)
                 {
                     btn.BackColor=Color.Red;
                 }
-
                 btn.Click += BtnTable_Click;
-
                 flpTable.Controls.Add(btn);
             }
         }
@@ -116,8 +99,7 @@ namespace CoffeeStore.Forms
             Button btn = (Button)sender;
             TableDTO table = (TableDTO)btn.Tag;
             selectedTable = (TableDTO)btn.Tag;
-            selectedTableID = table.TableID;
-      
+            selectedTableID = table.TableID;      
         }
         
         private void frmArea_Load(object sender, EventArgs e)
@@ -133,7 +115,6 @@ namespace CoffeeStore.Forms
                 LoadArea();
             }
         }
-
         private void btnUpdateArea_Click(object sender, EventArgs e)
         {
             if (selectedAreaID == 0)
@@ -148,7 +129,6 @@ namespace CoffeeStore.Forms
                 LoadArea();
             }
         }
-
         private void btnAddTable_Click(object sender, EventArgs e)
         {
             frmEditTable frm = new frmEditTable(selectedAreaID);
@@ -156,22 +136,17 @@ namespace CoffeeStore.Forms
             {
                 LoadTables(selectedAreaID);
             }
-            //MessageBox.Show("Bạn đang thêm bàn cho: Khu vực "+selectedAreaID+" ");
-
         }
-
         private void btnEditTable_Click(object sender, EventArgs e)
         {
-            if (selectedTableID == 0)
+            if (selectedTableID == null)
             {
                 MessageBox.Show("Vui lòng chọn bàn");
                 return;
             }
 
             TableDTO table = tableBUS.GetByID(selectedTableID);
-
             frmEditTable frm = new frmEditTable(table);
-
             if (frm.ShowDialog() == DialogResult.OK)
             {
                 LoadTables(selectedAreaID);

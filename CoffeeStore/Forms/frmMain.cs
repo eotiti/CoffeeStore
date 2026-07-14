@@ -79,7 +79,7 @@ namespace CoffeeStore.Forms
         //=========================================================================
         private void frmMain_Load(object sender, EventArgs e)
         {
-            toolCurrentUser.Text= " Xin chào: " + CurrentUser.User.UserName;            
+            toolCurrentUser.Text= " Xin chào: " + CurrentUser.User.FullName;            
             SetPermission();//set quyen
             if (CurrentUser.User == null)// chống mở form khi chưa set quyền và login
             {
