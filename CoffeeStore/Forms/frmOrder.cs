@@ -335,7 +335,6 @@ namespace CoffeeStore.Forms
             int quantity = selectedBillDetail.Quantity - 1;
             if (quantity <= 0)
             {
-
                 billDetailBUS.Delete(selectedBillDetail.BillDetailID);
                 if (bill != null)
                 {
