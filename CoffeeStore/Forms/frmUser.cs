@@ -24,7 +24,7 @@ namespace CoffeeStore.Forms
         //===========================================================================================================
         private void loadUser()
         {
-            dgvUser.DataSource=userBUS.GetAll();
+            //dgvUser.DataSource=userBUS.GetAll();
         }
         //===========================================================================================================
         private void frmUser_Load(object sender, EventArgs e)
