@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.menuStrip = new System.Windows.Forms.MenuStrip();
-            this.pnlMain = new System.Windows.Forms.Panel();
             this.toolOrder = new System.Windows.Forms.ToolStripMenuItem();
             this.menuOrder = new System.Windows.Forms.ToolStripMenuItem();
             this.menuDelivery = new System.Windows.Forms.ToolStripMenuItem();
@@ -37,6 +36,7 @@
             this.menuArea = new System.Windows.Forms.ToolStripMenuItem();
             this.menuCategory = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFood = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuUser = new System.Windows.Forms.ToolStripMenuItem();
             this.toolReport = new System.Windows.Forms.ToolStripMenuItem();
             this.menuWarehouse = new System.Windows.Forms.ToolStripMenuItem();
             this.menuReport = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,7 +46,7 @@
             this.menuPassword = new System.Windows.Forms.ToolStripMenuItem();
             this.menuLogout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolCurrentUser = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuUser = new System.Windows.Forms.ToolStripMenuItem();
+            this.pnlMain = new System.Windows.Forms.Panel();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -54,7 +54,7 @@
             // 
             this.menuStrip.BackColor = System.Drawing.Color.Gainsboro;
             this.menuStrip.Dock = System.Windows.Forms.DockStyle.Left;
-            this.menuStrip.Font = new System.Drawing.Font("Segoe UI", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuStrip.Font = new System.Drawing.Font("Segoe UI", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolOrder,
@@ -65,16 +65,9 @@
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip.Size = new System.Drawing.Size(227, 1055);
+            this.menuStrip.Size = new System.Drawing.Size(213, 1055);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip1";
-            // 
-            // pnlMain
-            // 
-            this.pnlMain.Location = new System.Drawing.Point(230, 0);
-            this.pnlMain.Name = "pnlMain";
-            this.pnlMain.Size = new System.Drawing.Size(1682, 1043);
-            this.pnlMain.TabIndex = 4;
             // 
             // toolOrder
             // 
@@ -120,7 +113,7 @@
             // 
             this.menuArea.Image = global::CoffeeStore.Properties.Resources._02_Data_Center;
             this.menuArea.Name = "menuArea";
-            this.menuArea.Size = new System.Drawing.Size(276, 46);
+            this.menuArea.Size = new System.Drawing.Size(348, 46);
             this.menuArea.Text = "Khu vực-Bàn";
             this.menuArea.Click += new System.EventHandler(this.menuArea_Click);
             // 
@@ -128,7 +121,7 @@
             // 
             this.menuCategory.Image = global::CoffeeStore.Properties.Resources._12_Investigation;
             this.menuCategory.Name = "menuCategory";
-            this.menuCategory.Size = new System.Drawing.Size(276, 46);
+            this.menuCategory.Size = new System.Drawing.Size(348, 46);
             this.menuCategory.Text = "Category";
             this.menuCategory.Click += new System.EventHandler(this.menuCategory_Click);
             // 
@@ -136,9 +129,16 @@
             // 
             this.menuFood.Image = global::CoffeeStore.Properties.Resources._17_Reusable_Bottle_;
             this.menuFood.Name = "menuFood";
-            this.menuFood.Size = new System.Drawing.Size(276, 46);
+            this.menuFood.Size = new System.Drawing.Size(348, 46);
             this.menuFood.Text = "Food-Drink";
             this.menuFood.Click += new System.EventHandler(this.menuFood_Click);
+            // 
+            // menuUser
+            // 
+            this.menuUser.Name = "menuUser";
+            this.menuUser.Size = new System.Drawing.Size(348, 46);
+            this.menuUser.Text = "Quản lý nhân viên";
+            this.menuUser.Click += new System.EventHandler(this.menuUser_Click);
             // 
             // toolReport
             // 
@@ -217,13 +217,14 @@
             this.toolCurrentUser.Name = "toolCurrentUser";
             this.toolCurrentUser.Size = new System.Drawing.Size(214, 45);
             this.toolCurrentUser.Text = "currentUser";
+            this.toolCurrentUser.Visible = false;
             // 
-            // menuUser
+            // pnlMain
             // 
-            this.menuUser.Name = "menuUser";
-            this.menuUser.Size = new System.Drawing.Size(348, 46);
-            this.menuUser.Text = "Quản lý nhân viên";
-            this.menuUser.Click += new System.EventHandler(this.menuUser_Click);
+            this.pnlMain.Location = new System.Drawing.Point(303, 0);
+            this.pnlMain.Name = "pnlMain";
+            this.pnlMain.Size = new System.Drawing.Size(1609, 1043);
+            this.pnlMain.TabIndex = 4;
             // 
             // frmMain
             // 

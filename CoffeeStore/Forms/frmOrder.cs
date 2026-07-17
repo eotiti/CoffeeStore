@@ -1,6 +1,5 @@
 ﻿using CoffeeStore.BUS;
 using CoffeeStore.Common;
-using CoffeeStore.DAL;
 using CoffeeStore.DTO;
 using CoffeeStore.Enum;
 using System;
@@ -23,29 +22,30 @@ namespace CoffeeStore.Forms
             InitializeComponent();
             AutoScaleMode = AutoScaleMode.Dpi;
         }
-        
-        
+
+        #region BUS
         private AreaBUS areaBUS = new AreaBUS();
-
         private TableBUS tableBUS = new TableBUS();
-        private TableDTO selectedTable = null;
-        //private Button selectedTableButton = null;
-
         private CategoryBUS categoryBUS = new CategoryBUS();
-        private int selectedCategoryID = 0;
-
         private FoodBUS foodBUS = new FoodBUS();
-
         private BillBUS billBUS = new BillBUS();
         private BillDetailBUS billDetailBUS = new BillDetailBUS();
-        private int selectedBillDetailID = 0;
-        private decimal currentTotal = 0;
-        //============================ A R E A ======================================
+        #endregion
+        #region Currrent State
 
-        private void LoadAreas()                                            // Load Area => All
+        private TableDTO selectedTable;
+        private BillDetailDTO selectedBillDetail ;
+
+        private int selectedAreaID;
+        private int selectedCategoryID;
+        private int selectedBillDetailID;
+
+        private decimal currentTotal;
+        #endregion
+        #region LOAD
+        private void LoadAreas()
         {
             DataTable dt = areaBUS.GetAll();
-            
             DataRow row = dt.NewRow();
             row["AreaID"] = 0;
             row["AreaName"] = "- Select Area -";
@@ -53,11 +53,8 @@ namespace CoffeeStore.Forms
             cboArea.DataSource = dt;
             cboArea.DisplayMember = "AreaName";
             cboArea.ValueMember = "AreaID";
-            cboArea.SelectedIndex=0;
+            cboArea.SelectedIndex = 0;
         }
-       
-        //======================== T A B L E ================================
-        
         private void LoadTables(int areaID)                                 // Load Table => areaID
         {
             flpTable.Controls.Clear();
@@ -68,7 +65,7 @@ namespace CoffeeStore.Forms
                 btn.Width = 100;
                 btn.Height = 60;
                 btn.Text = table.TableName;
-                btn.Tag = table;                
+                btn.Tag = table;
                 btn.Click += BtnTable_Click;
                 if (table.Status == TableStatus.Empty)
                 {
@@ -81,33 +78,11 @@ namespace CoffeeStore.Forms
                 flpTable.Controls.Add(btn);
             }
         }
-        private void BtnTable_Click(object sender, EventArgs e)                 //Event Click Table
-        {
-            Button btn = (Button)sender;
-            selectedTable = (TableDTO)btn.Tag;
-            groupBox2.Text = "ĐANG CHỌN BÀN: "+selectedTable.TableName;            
-            BillDTO bill =billBUS.GetOpenBillByTable(selectedTable.TableID);
-            if (bill != null)
-            {
-                LoadBill(bill.BillID);
-                LoadTotal(bill.BillID);
-            }
-            else
-            {
-                dgvBill.DataSource = null;
-                //groupBox2.Text = "Chưa chọn bàn";
-                dgvBill.DataSource = null;
-                lblSum.Text ="Tổng tiền: 0 VNĐ";
-            }
-
-
-        }
-        //============================C A T E G O R Y==================================
         private void LoadCategories()                                           // Load Category => All
         {
             flpCategory.Controls.Clear();
             DataTable dt = categoryBUS.GetAll();
-            
+
             foreach (DataRow row in dt.Rows)
             {
                 bool isActive = Convert.ToBoolean(row["IsActive"]);
@@ -124,31 +99,58 @@ namespace CoffeeStore.Forms
                 flpCategory.Controls.Add(btn);
             }
         }
+        private void LoadFoods(int categoryID)
+        {
+            flpFood.Controls.Clear();
+            DataTable dt = foodBUS.GetByCategory(categoryID);
+            foreach (DataRow row in dt.Rows)
+            {
+                Button btn = new Button();
+                btn.Width = 120;
+                btn.Height = 60;
+                btn.Text = row["FoodName"].ToString() + Environment.NewLine + Convert.ToDecimal(row["Price"]).ToString("N0");
+                btn.Tag = row["FoodID"];
+                btn.Click += BtnFood_Click;
+                flpFood.Controls.Add(btn);
+            }
+        }
+        private void LoadBill(int billID)
+        {
+            dgvBill.DataSource = billDetailBUS.GetBillDetails(billID);
+            LoadTotal(billID);
+            ConfigureBillGrid();
+        }
+        private void LoadTotal(int billID)
+        {
+            currentTotal = billDetailBUS.GetTotalAmount(billID);
+            lblSum.Text = "Tổng tiền: " + currentTotal.ToString("N0") + " VNĐ";
+        }
+        #endregion
+        #region EVENT
+        private void BtnTable_Click(object sender, EventArgs e)                 
+        {
+            Button btn = (Button)sender;
+            selectedTable = (TableDTO)btn.Tag;
+            groupBox2.Text = "ĐANG CHỌN BÀN: " + selectedTable.TableName;
+            BillDTO bill = billBUS.GetOpenBillByTable(selectedTable.TableID);
+            if (bill != null)
+            {
+                LoadBill(bill.BillID);
+                LoadTotal(bill.BillID);
+            }
+            else
+            {
+                dgvBill.DataSource = null;
+                lblSum.Text = "Tổng tiền: 0 VNĐ";
+            }
+        }
         private void BtnCategory_Click(object sender, EventArgs e)            // Event click Category
         {
             Button btn = (Button)sender;
             selectedCategoryID = Convert.ToInt32(btn.Tag);
             LoadFoods(selectedCategoryID);
         }
-        //================================ F O O D  + B I L L =========================================
-        
-        private void LoadFoods(int categoryID)                              // Load Food = ID Category
-        {
-            flpFood.Controls.Clear();
-            DataTable dt =foodBUS.GetByCategory(categoryID);
-            foreach (DataRow row in dt.Rows)
-            {
-                Button btn = new Button();
-                btn.Width = 120;
-                btn.Height = 60;
-                btn.Text =row["FoodName"].ToString() + Environment.NewLine + Convert.ToDecimal(row["Price"]).ToString("N0");
-                btn.Tag = row["FoodID"];
-                btn.Click += BtnFood_Click;
-                flpFood.Controls.Add(btn);
-            }
-        }
-        
-        private void BtnFood_Click(object sender,EventArgs e)               //Event Click Food = > Create Bill
+        private void BtnFood_Click(object sender, EventArgs e)
         {
             if (selectedTable == null)
             {
@@ -157,7 +159,7 @@ namespace CoffeeStore.Forms
             }
             Button btn = (Button)sender;
             int foodID = Convert.ToInt32(btn.Tag);
-            BillDTO billDTO =billBUS.GetOpenBillByTable(selectedTable.TableID);
+            BillDTO billDTO = billBUS.GetOpenBillByTable(selectedTable.TableID);
             int billID;
 
             if (billDTO == null)
@@ -166,7 +168,7 @@ namespace CoffeeStore.Forms
                 newBill.TableID = selectedTable.TableID;
                 newBill.UserID = CurrentUser.User.UserID;
                 billID = billBUS.CreateBill(newBill);
-                
+
             }
             else
             {
@@ -174,98 +176,30 @@ namespace CoffeeStore.Forms
             }
 
             FoodDTO food = foodBUS.GetByID(foodID);
-            BillDetailDTO detail = new BillDetailDTO();                    // tao cái DTO bill detail 
-            detail.BillID = billID;                                        // set các tham số
+            BillDetailDTO detail = new BillDetailDTO();
+            detail.BillID = billID;
             detail.FoodID = foodID;
             detail.Quantity = 1;
             detail.UnitPrice = food.Price;
             detail.Amount = food.Price;
 
-            BillDetailDTO existDetail =billDetailBUS.GetFoodInBill(billID,foodID);        // them bill Detail theo cái Bill ID
+            BillDetailDTO existDetail = billDetailBUS.GetFoodInBill(billID, foodID);
             if (existDetail == null)
             {
                 if (billDetailBUS.Insert(detail))
                 {
                     tableBUS.UpdateStatus(selectedTable.TableID, TableStatus.Occupied);
                     RefreshTables();
-                    //LoadTables(selectedAreaID);
-                    LoadBill(billID);
                 }
             }
             else
             {
-                int quantity =existDetail.Quantity + 1;
-                decimal amount =quantity * existDetail.UnitPrice;
-                billDetailBUS.UpdateQuantity(existDetail.BillDetailID,quantity,amount);
-            }                                
+                int quantity = existDetail.Quantity + 1;
+                decimal amount = quantity * existDetail.UnitPrice;
+                billDetailBUS.UpdateQuantity(existDetail.BillDetailID, quantity, amount);
+            }
             LoadBill(billID);
         }
-        //====================================== Bill=====================================
-        private void LoadBill(int billID)
-        {
-            dgvBill.DataSource = billDetailBUS.GetBillDetails(billID);
-            dgvBill.Columns["BillDetailID"].HeaderText = "STT";
-            dgvBill.Columns["FoodName"].HeaderText = "Tên món";
-            dgvBill.Columns["Quantity"].HeaderText = "Số lượng";
-            dgvBill.Columns["UnitPrice"].HeaderText = "Đơn Giá";
-            dgvBill.Columns["Amount"].HeaderText = "Thành tiền";
-            dgvBill.Columns["UnitPrice"].DefaultCellStyle.Format = "N0";
-            dgvBill.Columns["Amount"].DefaultCellStyle.Format = "N0";
-            dgvBill.Columns["BillDetailID"].Visible = false;
-            LoadTotal(billID);
-            
-        }
-        private void LoadTotal(int billID)
-        {
-            currentTotal =billDetailBUS.GetTotalAmount(billID);
-            lblSum.Text = "Tổng tiền: "+ currentTotal.ToString("N0")+" VNĐ";
-        }
-        private void RefreshTables()
-        {
-            LoadTables(selectedAreaID);
-        }
-        //=================================SYSTEM CODE GENERATE==========================================
-        private void frmOrder_Load(object sender, EventArgs e)
-        {
-            LoadCategories();
-            LoadAreas();
-            cboArea.DropDownStyle = ComboBoxStyle.DropDownList;
-            dgvBill.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            
-        }
-        private int selectedAreaID;
-        private void cboArea_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            {
-                if (cboArea.SelectedValue == null)
-                {
-                    flpTable.Visible=false;
-                    return;
-                }
-                else
-                {
-                    flpTable.Visible = true;
-                }
-                //int areaID;
-                if (!int.TryParse(cboArea.SelectedValue.ToString(),out selectedAreaID))
-                {
-                    return;
-                }
-                RefreshTables();
-            }
-        }
-
-        private void dgvBill_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0)
-            {
-                return;
-            }
-            selectedBillDetailID =Convert.ToInt32(dgvBill.Rows[e.RowIndex].Cells["BillDetailID"].Value);
-            selectedBillDetail = billDetailBUS.GetByID(selectedBillDetailID);
-
-        }
-
         private void btnDeleteFood_Click(object sender, EventArgs e)
         {
             if (selectedBillDetail == null)
@@ -273,8 +207,7 @@ namespace CoffeeStore.Forms
                 MessageBox.Show("Vui lòng chọn món.");
                 return;
             }
-
-            DialogResult result = MessageBox.Show("Bạn có chắc muốn xóa món này?","Xác nhận",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+            DialogResult result = MessageBox.Show("Bạn có chắc muốn xóa món này?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (result == DialogResult.No)
             {
                 return;
@@ -284,7 +217,6 @@ namespace CoffeeStore.Forms
                 MessageBox.Show("Xóa thất bại.");
                 return;
             }
-
             BillDTO bill = billBUS.GetOpenBillByTable(selectedTable.TableID);
 
             if (bill != null)
@@ -309,7 +241,7 @@ namespace CoffeeStore.Forms
             selectedBillDetail = null;
 
         }
-        private BillDetailDTO selectedBillDetail = null;
+
         private void btnPlus_Click(object sender, EventArgs e)
         {
             if (selectedBillDetail == null)
@@ -364,7 +296,7 @@ namespace CoffeeStore.Forms
 
                 selectedBillDetail = billDetailBUS.GetByID(selectedBillDetail.BillDetailID);
             }
-            
+
             if (bill != null)
             {
                 LoadBill(bill.BillID);
@@ -372,7 +304,6 @@ namespace CoffeeStore.Forms
 
             RefreshTables();
         }
-
         private void btnPayment_Click(object sender, EventArgs e)
         {
             if (selectedTable == null)
@@ -401,14 +332,79 @@ namespace CoffeeStore.Forms
                 MessageBox.Show("Thanh toán thất bại.");
                 return;
             }
-            tableBUS.UpdateStatus(selectedTable.TableID,TableStatus.Empty);
+            tableBUS.UpdateStatus(selectedTable.TableID, TableStatus.Empty);
+            ResetOrder();
+            RefreshTables();
+        }
+        #endregion
+        #region Reset form
+        private void ResetOrder()
+        {
             dgvBill.DataSource = null;
             lblSum.Text = "Tổng tiền: 0 VNĐ";
             currentTotal = 0;
             selectedBillDetail = null;
             selectedTable = null;
             flpFood.Controls.Clear();
-            RefreshTables();
         }
+        private void RefreshTables()
+        {
+            LoadTables(selectedAreaID);
+        }
+        private void ConfigureBillGrid()
+        {
+            dgvBill.Columns["BillDetailID"].HeaderText = "STT";
+            dgvBill.Columns["FoodName"].HeaderText = "Tên món";
+            dgvBill.Columns["Quantity"].HeaderText = "Số lượng";
+            dgvBill.Columns["UnitPrice"].HeaderText = "Đơn Giá";
+            dgvBill.Columns["Amount"].HeaderText = "Thành tiền";
+            dgvBill.Columns["UnitPrice"].DefaultCellStyle.Format = "N0";
+            dgvBill.Columns["Amount"].DefaultCellStyle.Format = "N0";
+            dgvBill.Columns["BillDetailID"].Visible = false;
+        }
+        #endregion
+        #region Form Event
+
+        private void frmOrder_Load(object sender, EventArgs e)
+        {
+            LoadCategories();
+            LoadAreas();
+            
+            cboArea.DropDownStyle = ComboBoxStyle.DropDownList;
+            dgvBill.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+        }
+        private void cboArea_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            {
+                if (cboArea.SelectedValue == null)
+                {
+                    flpTable.Visible=false;
+                    return;
+                }
+                else
+                {
+                    flpTable.Visible = true;
+                }
+           
+                if (!int.TryParse(cboArea.SelectedValue.ToString(),out selectedAreaID))
+                {
+                    return;
+                }
+                RefreshTables();
+            }
+        }
+
+        private void dgvBill_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+            {
+                return;
+            }
+            selectedBillDetailID =Convert.ToInt32(dgvBill.Rows[e.RowIndex].Cells["BillDetailID"].Value);
+            selectedBillDetail = billDetailBUS.GetByID(selectedBillDetailID);
+
+        }
+
+        #endregion
     }
 }
