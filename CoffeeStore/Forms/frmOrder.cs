@@ -456,5 +456,23 @@ namespace CoffeeStore.Forms
                 MessageBox.Show("Chuyển bàn thành công.");
             }
         }
+
+        private void btnMergeTable_Click(object sender, EventArgs e)
+        {
+            if (selectedTable == null)
+            {
+                MessageBox.Show("Vui lòng chọn bàn.");
+                return;
+            }
+
+            frmMergeTable frm = new frmMergeTable(selectedTable);
+
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+                TableDTO mergeTable = frm.SelectedTable;
+
+                MessageBox.Show("Gộp với " + mergeTable.TableName);
+            }
+        }
     }
 }

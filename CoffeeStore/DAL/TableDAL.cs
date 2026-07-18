@@ -11,7 +11,37 @@ namespace CoffeeStore.DAL
 {
     public class TableDAL:DBConnection
     {
-        
+
+        public List<TableDTO> GetAll()
+        {
+            List<TableDTO> list = new List<TableDTO>();
+            string query = @"SELECT
+                                t.TableID,
+                                t.TableName,
+                                t.AreaID,
+                                a.AreaName,
+                                t.Status
+                            FROM CafeTables t
+                            INNER JOIN Areas a
+                            ON t.AreaID = a.AreaID";
+            using (SqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                SqlCommand cmd = new SqlCommand(query, conn);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    TableDTO table = new TableDTO();
+                    table.TableID = Convert.ToInt32(reader["TableID"]);
+                    table.TableName = reader["TableName"].ToString();
+                    table.AreaID = Convert.ToInt32(reader["AreaID"]);                    
+                    table.AreaName=reader["AreaName"].ToString();
+                    table.Status = Convert.ToInt32(reader["Status"]);
+                    list.Add(table);
+                }
+            }
+            return list;
+        }
         public List<TableDTO> GetAllByAreaID(int areaID)//lay ban theo khu vuc
         {
             List<TableDTO> list = new List<TableDTO>();

@@ -50,6 +50,7 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.flpFood = new System.Windows.Forms.FlowLayoutPanel();
             this.btnMoveTable = new System.Windows.Forms.Button();
+            this.btnMergeTable = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBill)).BeginInit();
@@ -67,6 +68,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnMergeTable);
             this.groupBox1.Controls.Add(this.btnMoveTable);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.panel2);
@@ -276,6 +278,17 @@
             this.btnMoveTable.UseVisualStyleBackColor = true;
             this.btnMoveTable.Click += new System.EventHandler(this.btnMoveTable_Click);
             // 
+            // btnMergeTable
+            // 
+            this.btnMergeTable.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMergeTable.Location = new System.Drawing.Point(231, 484);
+            this.btnMergeTable.Name = "btnMergeTable";
+            this.btnMergeTable.Size = new System.Drawing.Size(149, 40);
+            this.btnMergeTable.TabIndex = 12;
+            this.btnMergeTable.Text = "Gộp bàn";
+            this.btnMergeTable.UseVisualStyleBackColor = true;
+            this.btnMergeTable.Click += new System.EventHandler(this.btnMergeTable_Click);
+            // 
             // frmOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(120F, 120F);
@@ -327,5 +340,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Button btnMoveTable;
+        private System.Windows.Forms.Button btnMergeTable;
     }
 }

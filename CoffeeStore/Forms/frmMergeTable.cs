@@ -13,52 +13,51 @@ using System.Windows.Forms;
 
 namespace CoffeeStore.Forms
 {
-    public partial class frmMoveTable : Form
+    public partial class frmMergeTable : Form
     {
-        public frmMoveTable()
-        {
-            InitializeComponent();          
-        }
-        public frmMoveTable(TableDTO table)
+        public frmMergeTable()
         {
             InitializeComponent();
+        }
+        public frmMergeTable(TableDTO table)
+        {
+            InitializeComponent();
+
             currentTable = table;
         }
-
-        #region Current State
-        private TableDTO currentTable;
+        #region Current
         private TableBUS tableBUS = new TableBUS();
+        private TableDTO currentTable;
         public TableDTO SelectedTable { get; private set; }
-
-        private List<TableDTO> tableList;
         #endregion
-
-        #region Load
+        #region LOAD
         private void LoadTables()
         {
-            tableList = tableBUS.GetAll();
-            tableList= tableList.Where(x => x.Status == TableStatus.Empty && x.TableID != currentTable.TableID).ToList();
-            //tableList= tableList.Where(x => x.Status == TableStatus.Empty && x.TableID != currentTable.TableID).ToList();
-            cboTable.DataSource = tableList;
-            cboTable.DisplayMember = "DisplayName";
-            cboTable.ValueMember = "TableID";
+            List<TableDTO> tables = tableBUS.GetAllByAreaID(currentTable.AreaID);
+
+            tables = tables.Where(x => x.Status == TableStatus.Occupied && x.TableID != currentTable.TableID).ToList();
+
+            cboMergeTable.DataSource = tables;
+            cboMergeTable.DisplayMember = "TableName";
+            cboMergeTable.ValueMember = "TableID";
         }
         #endregion
-        private void frmMoveTable_Load(object sender, EventArgs e)
+        private void frmMergeTable_Load(object sender, EventArgs e)
         {
-            lblTable.Text =currentTable.TableName;
+            lblCurrentTable.Text = currentTable.TableName;
+
             LoadTables();
         }
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            if (cboTable.SelectedItem == null)
+            if (cboMergeTable.SelectedItem == null)
             {
                 MessageBox.Show("Vui lòng chọn bàn.");
                 return;
             }
 
-            SelectedTable = (TableDTO)cboTable.SelectedItem;
+            SelectedTable = (TableDTO)cboMergeTable.SelectedItem;
 
             DialogResult = DialogResult.OK;
         }
@@ -66,6 +65,7 @@ namespace CoffeeStore.Forms
         private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
+
         }
     }
 }

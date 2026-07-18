@@ -12,5 +12,13 @@ namespace CoffeeStore.DTO
         public string TableName { get; set; }
         public int AreaID { get; set; }
         public int Status { get; set; }
+        public string AreaName { get; set; }
+        public string DisplayName
+        {
+            get
+            {
+                return AreaName + " - " + TableName;
+            }
+        }
     }
 }

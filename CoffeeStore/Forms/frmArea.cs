@@ -1,6 +1,7 @@
 ﻿using CoffeeStore.BUS;
 using CoffeeStore.DAL;
 using CoffeeStore.DTO;
+using CoffeeStore.Enum;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -75,7 +76,7 @@ namespace CoffeeStore.Forms
                 btn.Width = 120;
                 btn.Height = 80;
 
-                btn.Text = table.TableName+"\n"+table.AreaID+"\n"+table.Status;
+                btn.Text = table.TableName;
 
                 btn.Tag = table;
                 if (table.Status == 0)

@@ -12,6 +12,10 @@ namespace CoffeeStore.BUS
     public class TableBUS
     {
         private TableDAL tableDAL=new TableDAL();
+        public List<TableDTO> GetAll()
+        {  
+            return tableDAL.GetAll();
+        }
         public List<TableDTO> GetAllByAreaID(int areaID)// load Danh sach ban theo khu vuc
         {
             return tableDAL.GetAllByAreaID(areaID);

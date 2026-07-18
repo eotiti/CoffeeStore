@@ -77,7 +77,7 @@
             this.toolOrder.Image = global::CoffeeStore.Properties.Resources.buy;
             this.toolOrder.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolOrder.Name = "toolOrder";
-            this.toolOrder.Size = new System.Drawing.Size(214, 45);
+            this.toolOrder.Size = new System.Drawing.Size(200, 42);
             this.toolOrder.Text = "Bán hàng";
             this.toolOrder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -85,14 +85,14 @@
             // 
             this.menuOrder.Image = global::CoffeeStore.Properties.Resources.pencil;
             this.menuOrder.Name = "menuOrder";
-            this.menuOrder.Size = new System.Drawing.Size(246, 46);
+            this.menuOrder.Size = new System.Drawing.Size(234, 42);
             this.menuOrder.Text = "Gọi món";
             this.menuOrder.Click += new System.EventHandler(this.menuOrder_Click);
             // 
             // menuDelivery
             // 
             this.menuDelivery.Name = "menuDelivery";
-            this.menuDelivery.Size = new System.Drawing.Size(246, 46);
+            this.menuDelivery.Size = new System.Drawing.Size(234, 42);
             this.menuDelivery.Text = "Giao hàng";
             // 
             // toolManager
@@ -105,7 +105,7 @@
             this.toolManager.Image = global::CoffeeStore.Properties.Resources.briefcase;
             this.toolManager.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolManager.Name = "toolManager";
-            this.toolManager.Size = new System.Drawing.Size(214, 45);
+            this.toolManager.Size = new System.Drawing.Size(200, 42);
             this.toolManager.Text = "Quản trị";
             this.toolManager.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -113,7 +113,7 @@
             // 
             this.menuArea.Image = global::CoffeeStore.Properties.Resources._02_Data_Center;
             this.menuArea.Name = "menuArea";
-            this.menuArea.Size = new System.Drawing.Size(348, 46);
+            this.menuArea.Size = new System.Drawing.Size(333, 42);
             this.menuArea.Text = "Khu vực-Bàn";
             this.menuArea.Click += new System.EventHandler(this.menuArea_Click);
             // 
@@ -121,7 +121,7 @@
             // 
             this.menuCategory.Image = global::CoffeeStore.Properties.Resources._12_Investigation;
             this.menuCategory.Name = "menuCategory";
-            this.menuCategory.Size = new System.Drawing.Size(348, 46);
+            this.menuCategory.Size = new System.Drawing.Size(333, 42);
             this.menuCategory.Text = "Category";
             this.menuCategory.Click += new System.EventHandler(this.menuCategory_Click);
             // 
@@ -129,14 +129,14 @@
             // 
             this.menuFood.Image = global::CoffeeStore.Properties.Resources._17_Reusable_Bottle_;
             this.menuFood.Name = "menuFood";
-            this.menuFood.Size = new System.Drawing.Size(348, 46);
+            this.menuFood.Size = new System.Drawing.Size(333, 42);
             this.menuFood.Text = "Food-Drink";
             this.menuFood.Click += new System.EventHandler(this.menuFood_Click);
             // 
             // menuUser
             // 
             this.menuUser.Name = "menuUser";
-            this.menuUser.Size = new System.Drawing.Size(348, 46);
+            this.menuUser.Size = new System.Drawing.Size(333, 42);
             this.menuUser.Text = "Quản lý nhân viên";
             this.menuUser.Click += new System.EventHandler(this.menuUser_Click);
             // 
@@ -149,7 +149,7 @@
             this.toolReport.Image = global::CoffeeStore.Properties.Resources._20_Report;
             this.toolReport.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolReport.Name = "toolReport";
-            this.toolReport.Size = new System.Drawing.Size(214, 45);
+            this.toolReport.Size = new System.Drawing.Size(200, 42);
             this.toolReport.Text = "Báo cáo/Kho";
             this.toolReport.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -158,21 +158,21 @@
             this.menuWarehouse.Image = global::CoffeeStore.Properties.Resources._02_Data_Center;
             this.menuWarehouse.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.menuWarehouse.Name = "menuWarehouse";
-            this.menuWarehouse.Size = new System.Drawing.Size(240, 46);
+            this.menuWarehouse.Size = new System.Drawing.Size(229, 42);
             this.menuWarehouse.Text = "Nhập kho";
             // 
             // menuReport
             // 
             this.menuReport.Image = global::CoffeeStore.Properties.Resources._11_Analytics;
             this.menuReport.Name = "menuReport";
-            this.menuReport.Size = new System.Drawing.Size(240, 46);
+            this.menuReport.Size = new System.Drawing.Size(229, 42);
             this.menuReport.Text = "BC X-N-T";
             // 
             // menuKiemKe
             // 
             this.menuKiemKe.Image = global::CoffeeStore.Properties.Resources.statistics;
             this.menuKiemKe.Name = "menuKiemKe";
-            this.menuKiemKe.Size = new System.Drawing.Size(240, 46);
+            this.menuKiemKe.Size = new System.Drawing.Size(229, 42);
             this.menuKiemKe.Text = "KIỂM KÊ";
             // 
             // toolAccount
@@ -184,7 +184,7 @@
             this.toolAccount.Image = global::CoffeeStore.Properties.Resources.user_icon;
             this.toolAccount.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolAccount.Name = "toolAccount";
-            this.toolAccount.Size = new System.Drawing.Size(214, 45);
+            this.toolAccount.Size = new System.Drawing.Size(200, 42);
             this.toolAccount.Text = "Tài khoản";
             this.toolAccount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -192,7 +192,7 @@
             // 
             this.menuAccount.Image = global::CoffeeStore.Properties.Resources.banner;
             this.menuAccount.Name = "menuAccount";
-            this.menuAccount.Size = new System.Drawing.Size(245, 46);
+            this.menuAccount.Size = new System.Drawing.Size(234, 42);
             this.menuAccount.Text = "Thông tin";
             this.menuAccount.Click += new System.EventHandler(this.menuAccount_Click);
             // 
@@ -200,14 +200,14 @@
             // 
             this.menuPassword.Image = global::CoffeeStore.Properties.Resources.logo_login;
             this.menuPassword.Name = "menuPassword";
-            this.menuPassword.Size = new System.Drawing.Size(245, 46);
+            this.menuPassword.Size = new System.Drawing.Size(234, 42);
             this.menuPassword.Text = "Mật khẩu";
             // 
             // menuLogout
             // 
             this.menuLogout.Image = global::CoffeeStore.Properties.Resources.images;
             this.menuLogout.Name = "menuLogout";
-            this.menuLogout.Size = new System.Drawing.Size(245, 46);
+            this.menuLogout.Size = new System.Drawing.Size(234, 42);
             this.menuLogout.Text = "Đăng xuất";
             this.menuLogout.Click += new System.EventHandler(this.menuLogout_Click);
             // 
@@ -215,13 +215,13 @@
             // 
             this.toolCurrentUser.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.toolCurrentUser.Name = "toolCurrentUser";
-            this.toolCurrentUser.Size = new System.Drawing.Size(214, 45);
+            this.toolCurrentUser.Size = new System.Drawing.Size(200, 42);
             this.toolCurrentUser.Text = "currentUser";
             this.toolCurrentUser.Visible = false;
             // 
             // pnlMain
             // 
-            this.pnlMain.Location = new System.Drawing.Point(303, 0);
+            this.pnlMain.Location = new System.Drawing.Point(216, 0);
             this.pnlMain.Name = "pnlMain";
             this.pnlMain.Size = new System.Drawing.Size(1609, 1043);
             this.pnlMain.TabIndex = 4;
