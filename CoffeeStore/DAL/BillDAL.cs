@@ -1,6 +1,7 @@
 ﻿using CoffeeStore.DTO;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -85,6 +86,12 @@ namespace CoffeeStore.DAL
                 return cmd.ExecuteNonQuery() > 0;
             }
             
+        }
+        public DataTable GetOpenBillTotals()
+        {
+            DataTable dt = new DataTable();
+
+            return dt;
         }
     }
 }

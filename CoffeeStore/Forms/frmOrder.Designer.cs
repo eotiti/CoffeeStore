@@ -60,6 +60,7 @@
             // 
             // flpTable
             // 
+            this.flpTable.AutoScroll = true;
             this.flpTable.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.flpTable.Location = new System.Drawing.Point(3, 76);
             this.flpTable.Name = "flpTable";
@@ -240,6 +241,7 @@
             // 
             // flpCategory
             // 
+            this.flpCategory.AutoScroll = true;
             this.flpCategory.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.flpCategory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpCategory.Location = new System.Drawing.Point(3, 30);
@@ -260,6 +262,7 @@
             // 
             // flpFood
             // 
+            this.flpFood.AutoScroll = true;
             this.flpFood.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.flpFood.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpFood.Location = new System.Drawing.Point(3, 30);

@@ -67,7 +67,9 @@ namespace CoffeeStore.Forms
                 Button btn = new Button();
                 btn.Width = 100;
                 btn.Height = 60;
-                btn.Text = table.TableName;
+
+                btn.Text = table.TableName+"\n";
+                //decimal total=billBUS.Payment(table.TableID).Total;
                 btn.Tag = table;
                 btn.Click += BtnTable_Click;
                 if (table.Status == TableStatus.Empty)
