@@ -17,28 +17,23 @@ namespace CoffeeStore.Forms
     {
         public frmMain()
         {
-            InitializeComponent();
-            
+            InitializeComponent();            
         }
-        
         private void frmMain_FormClosed(object sender, FormClosedEventArgs e)
         {
             Application.Exit();
         }
-        //===================FUNCTION PERMISSION================
         private void SetPermission()
         {
             switch (CurrentUser.User.RoleName)
             {
-                case "Admin":// neu la Admin thi Full quyen khong can An quyen
+                case "Admin":
                     break;
-
-                case "User":// neu la Nhan vien thi.....
+                case "User":
                     toolManager.Visible = false;
                     toolReport.Visible = false;
                     break;
-
-                case "Customer":// Neu la khach hang thi.....
+                case "Customer":
                     menuAccount.Visible = false;
                     menuWarehouse.Visible = false;
                     break;
@@ -62,26 +57,12 @@ namespace CoffeeStore.Forms
 
             childForm.Show();
         }
-        private void OpenForm<T>() where T : Form, new()
-        {
-            foreach (Form frm in MdiChildren)
-            {
-                if (frm is T)
-                {
-                    frm.Activate();
-                    return;
-                }
-            }
-            T child = new T();
-            child.MdiParent = this;
-            child.Show();
-        }
-        //=========================================================================
+
         private void frmMain_Load(object sender, EventArgs e)
         {
             toolAccount.Text= "Xin chào:" + CurrentUser.User.FullName;            
-            SetPermission();//set quyen
-            if (CurrentUser.User == null)// chống mở form khi chưa set quyền và login
+            SetPermission();
+            if (CurrentUser.User == null)
             {
                 MessageBox.Show("Phiên đăng nhập không hợp lệ");
                 this.Close();
@@ -90,17 +71,14 @@ namespace CoffeeStore.Forms
         }
         private void menuArea_Click(object sender, EventArgs e)
         {
-            //OpenForm<frmArea>();
             OpenForm(new frmArea());
         }
         private void menuCategory_Click(object sender, EventArgs e)
         {
-            //OpenForm<frmCategory>();
             OpenForm(new frmCategory());
         }
         private void menuFood_Click(object sender, EventArgs e)
         {
-            //OpenForm<frmFood>();
             OpenForm(new frmFood());
         }
         private void menuOrder_Click(object sender, EventArgs e)
@@ -111,16 +89,17 @@ namespace CoffeeStore.Forms
         {
             OpenForm (new frmAccount());
         }
+        
+        private void menuUser_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmUser()) ;
+        }
         private void menuLogout_Click(object sender, EventArgs e)
         {
             CurrentUser.User = null;
             frmLogin frm = new frmLogin();
             frm.Show();
             this.Hide();
-        }
-        private void menuUser_Click(object sender, EventArgs e)
-        {
-            OpenForm(new frmUser()) ;
         }
     }
 }

@@ -1,6 +1,4 @@
-﻿using CoffeeStore.DAL;
-using CoffeeStore.DTO;
-using CoffeeStore.BUS;
+﻿
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using CoffeeStore.DTO;
+using CoffeeStore.BUS;
 
 namespace CoffeeStore.Forms
 {

@@ -73,6 +73,18 @@ namespace CoffeeStore.DAL
                 return cmd.ExecuteNonQuery() > 0;
             }
         }
-
+        public bool UpdateTable(int billID, int newTableID)
+        {
+            string sql = @"UPDATE Bills SET TableID = @TableID WHERE BillID = @BillID";
+            using (SqlConnection conn = GetConnection())
+            {
+                conn.Open();
+                SqlCommand cmd =new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@TableID", newTableID);
+                cmd.Parameters.AddWithValue("@BillID", billID);
+                return cmd.ExecuteNonQuery() > 0;
+            }
+            
+        }
     }
 }

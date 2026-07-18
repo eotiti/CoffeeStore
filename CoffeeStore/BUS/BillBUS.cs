@@ -29,5 +29,9 @@ namespace CoffeeStore.BUS
         {
             return dal.Delete(billID);
         }
+        public bool MoveTable(int billID, int newTableID)
+        {
+            return dal.UpdateTable(billID, newTableID);
+        }
     }
 }

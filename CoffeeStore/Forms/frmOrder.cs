@@ -34,10 +34,13 @@ namespace CoffeeStore.Forms
         #region Currrent State
 
         private TableDTO selectedTable;
+
         private BillDetailDTO selectedBillDetail ;
 
         private int selectedAreaID;
+
         private int selectedCategoryID;
+
         private int selectedBillDetailID;
 
         private decimal currentTotal;
@@ -125,6 +128,29 @@ namespace CoffeeStore.Forms
             currentTotal = billDetailBUS.GetTotalAmount(billID);
             lblSum.Text = "Tổng tiền: " + currentTotal.ToString("N0") + " VNĐ";
         }
+        private void RefreshCurrentBill()
+        {
+            if (selectedTable == null)
+            {
+                dgvBill.DataSource = null;
+                lblSum.Text = "Tổng tiền: 0 VNĐ";
+                currentTotal = 0;
+                return;
+            }
+
+            BillDTO bill = billBUS.GetOpenBillByTable(selectedTable.TableID);
+
+            if (bill != null)
+            {
+                LoadBill(bill.BillID);
+            }
+            else
+            {
+                dgvBill.DataSource = null;
+                lblSum.Text = "Tổng tiền: 0 VNĐ";
+                currentTotal = 0;
+            }
+        }
         #endregion
         #region EVENT
         private void BtnTable_Click(object sender, EventArgs e)                 
@@ -168,7 +194,6 @@ namespace CoffeeStore.Forms
                 newBill.TableID = selectedTable.TableID;
                 newBill.UserID = CurrentUser.User.UserID;
                 billID = billBUS.CreateBill(newBill);
-
             }
             else
             {
@@ -182,7 +207,6 @@ namespace CoffeeStore.Forms
             detail.Quantity = 1;
             detail.UnitPrice = food.Price;
             detail.Amount = food.Price;
-
             BillDetailDTO existDetail = billDetailBUS.GetFoodInBill(billID, foodID);
             if (existDetail == null)
             {
@@ -224,9 +248,7 @@ namespace CoffeeStore.Forms
                 if (billDetailBUS.CountByBill(bill.BillID) == 0)
                 {
                     billBUS.Delete(bill.BillID);
-
                     tableBUS.UpdateStatus(selectedTable.TableID, TableStatus.Empty);
-
                     dgvBill.DataSource = null;
                     lblSum.Text = "Tổng tiền: 0 VNĐ";
                 }
@@ -235,11 +257,8 @@ namespace CoffeeStore.Forms
                     LoadBill(bill.BillID);
                 }
             }
-
             RefreshTables();
-
             selectedBillDetail = null;
-
         }
 
         private void btnPlus_Click(object sender, EventArgs e)
@@ -274,26 +293,20 @@ namespace CoffeeStore.Forms
                     {
                         billBUS.Delete(bill.BillID);
                         tableBUS.UpdateStatus(selectedTable.TableID, TableStatus.Empty);
-
                         dgvBill.DataSource = null;
                         lblSum.Text = "Tổng tiền: 0 VNĐ";
                         currentTotal = 0;
-
                         RefreshTables();
-
                         selectedBillDetail = null;
                         return;
                     }
                 }
-
                 selectedBillDetail = null;
             }
             else
             {
                 decimal amount = quantity * selectedBillDetail.UnitPrice;
-
                 billDetailBUS.UpdateQuantity(selectedBillDetail.BillDetailID, quantity, amount);
-
                 selectedBillDetail = billDetailBUS.GetByID(selectedBillDetail.BillDetailID);
             }
 
@@ -301,7 +314,6 @@ namespace CoffeeStore.Forms
             {
                 LoadBill(bill.BillID);
             }
-
             RefreshTables();
         }
         private void btnPayment_Click(object sender, EventArgs e)
@@ -311,9 +323,7 @@ namespace CoffeeStore.Forms
                 MessageBox.Show("Vui lòng chọn bàn.");
                 return;
             }
-
             BillDTO bill = billBUS.GetOpenBillByTable(selectedTable.TableID);
-
             if (bill == null)
             {
                 MessageBox.Show("Bàn này chưa có hóa đơn.");
@@ -326,7 +336,6 @@ namespace CoffeeStore.Forms
                 return;
             }
             bool success = billBUS.Payment(bill.BillID, currentTotal);
-
             if (!success)
             {
                 MessageBox.Show("Thanh toán thất bại.");
@@ -368,8 +377,7 @@ namespace CoffeeStore.Forms
         private void frmOrder_Load(object sender, EventArgs e)
         {
             LoadCategories();
-            LoadAreas();
-            
+            LoadAreas();            
             cboArea.DropDownStyle = ComboBoxStyle.DropDownList;
             dgvBill.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
@@ -393,7 +401,6 @@ namespace CoffeeStore.Forms
                 RefreshTables();
             }
         }
-
         private void dgvBill_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
@@ -402,9 +409,52 @@ namespace CoffeeStore.Forms
             }
             selectedBillDetailID =Convert.ToInt32(dgvBill.Rows[e.RowIndex].Cells["BillDetailID"].Value);
             selectedBillDetail = billDetailBUS.GetByID(selectedBillDetailID);
-
         }
 
         #endregion
+
+        private void btnMoveTable_Click(object sender, EventArgs e)
+        {
+            if (selectedTable == null)
+            {
+                MessageBox.Show("Vui lòng chọn bàn.");
+                return;
+            }
+            frmMoveTable frm = new frmMoveTable(selectedTable);
+            if (frm.ShowDialog() == DialogResult.OK)
+            {
+
+                TableDTO newTable = frm.SelectedTable;
+
+                BillDTO bill = billBUS.GetOpenBillByTable(selectedTable.TableID);
+
+                if (bill == null)
+                {
+                    MessageBox.Show("Không tìm thấy hóa đơn.");
+                    return;
+                }
+
+                if (!billBUS.MoveTable(bill.BillID, newTable.TableID))
+                {
+                    MessageBox.Show("Chuyển bàn thất bại.");
+                    return;
+                }
+
+                tableBUS.UpdateStatus(selectedTable.TableID, TableStatus.Empty);
+
+                tableBUS.UpdateStatus(newTable.TableID, TableStatus.Occupied);
+
+                selectedTable = newTable;
+
+                RefreshTables();
+
+               RefreshCurrentBill();
+                
+
+                groupBox2.Text = "ĐANG CHỌN BÀN: " + selectedTable.TableName;
+
+                MessageBox.Show("Chuyển bàn thành công.");
+            }
+        }
     }
 }

@@ -49,6 +49,7 @@
             this.flpCategory = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.flpFood = new System.Windows.Forms.FlowLayoutPanel();
+            this.btnMoveTable = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBill)).BeginInit();
@@ -61,11 +62,12 @@
             this.flpTable.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.flpTable.Location = new System.Drawing.Point(3, 76);
             this.flpTable.Name = "flpTable";
-            this.flpTable.Size = new System.Drawing.Size(827, 459);
+            this.flpTable.Size = new System.Drawing.Size(827, 400);
             this.flpTable.TabIndex = 0;
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnMoveTable);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.panel2);
             this.groupBox1.Controls.Add(this.label2);
@@ -215,7 +217,7 @@
             // btnDeleteFood
             // 
             this.btnDeleteFood.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDeleteFood.Location = new System.Drawing.Point(488, 487);
+            this.btnDeleteFood.Location = new System.Drawing.Point(494, 485);
             this.btnDeleteFood.Name = "btnDeleteFood";
             this.btnDeleteFood.Size = new System.Drawing.Size(70, 40);
             this.btnDeleteFood.TabIndex = 2;
@@ -262,6 +264,17 @@
             this.flpFood.Name = "flpFood";
             this.flpFood.Size = new System.Drawing.Size(710, 343);
             this.flpFood.TabIndex = 0;
+            // 
+            // btnMoveTable
+            // 
+            this.btnMoveTable.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMoveTable.Location = new System.Drawing.Point(6, 484);
+            this.btnMoveTable.Name = "btnMoveTable";
+            this.btnMoveTable.Size = new System.Drawing.Size(199, 40);
+            this.btnMoveTable.TabIndex = 11;
+            this.btnMoveTable.Text = "Chuyển bàn";
+            this.btnMoveTable.UseVisualStyleBackColor = true;
+            this.btnMoveTable.Click += new System.EventHandler(this.btnMoveTable_Click);
             // 
             // frmOrder
             // 
@@ -313,5 +326,6 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Button btnMoveTable;
     }
 }
