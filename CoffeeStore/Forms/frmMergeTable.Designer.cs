@@ -29,13 +29,13 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.cboMergeTable = new System.Windows.Forms.ComboBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.lblCurrentTable = new System.Windows.Forms.Label();
             this.btnCancel = new System.Windows.Forms.Button();
             this.btnOK = new System.Windows.Forms.Button();
+            this.cboMergeTable = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.lblCurrentTable = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -55,6 +55,32 @@
             this.panel1.Size = new System.Drawing.Size(467, 446);
             this.panel1.TabIndex = 1;
             // 
+            // btnCancel
+            // 
+            this.btnCancel.Image = global::CoffeeStore.Properties.Resources.delete;
+            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnCancel.Location = new System.Drawing.Point(184, 331);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(163, 59);
+            this.btnCancel.TabIndex = 7;
+            this.btnCancel.Text = "Huỷ";
+            this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
+            // 
+            // btnOK
+            // 
+            this.btnOK.Image = global::CoffeeStore.Properties.Resources.tick;
+            this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnOK.Location = new System.Drawing.Point(184, 248);
+            this.btnOK.Name = "btnOK";
+            this.btnOK.Size = new System.Drawing.Size(163, 77);
+            this.btnOK.TabIndex = 6;
+            this.btnOK.Text = "Gộp";
+            this.btnOK.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.btnOK.UseVisualStyleBackColor = true;
+            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
+            // 
             // cboMergeTable
             // 
             this.cboMergeTable.FormattingEnabled = true;
@@ -71,6 +97,16 @@
             this.label2.Size = new System.Drawing.Size(128, 32);
             this.label2.TabIndex = 4;
             this.label2.Text = "Gộp vào ";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::CoffeeStore.Properties.Resources.down;
+            this.pictureBox1.Location = new System.Drawing.Point(248, 74);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(63, 72);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
             // 
             // label1
             // 
@@ -91,42 +127,6 @@
             this.lblCurrentTable.Size = new System.Drawing.Size(157, 32);
             this.lblCurrentTable.TabIndex = 0;
             this.lblCurrentTable.Text = "tablename";
-            // 
-            // btnCancel
-            // 
-            this.btnCancel.Image = global::CoffeeStore.Properties.Resources.delete;
-            this.btnCancel.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnCancel.Location = new System.Drawing.Point(184, 331);
-            this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(138, 59);
-            this.btnCancel.TabIndex = 7;
-            this.btnCancel.Text = "Huỷ";
-            this.btnCancel.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnCancel.UseVisualStyleBackColor = true;
-            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
-            // 
-            // btnOK
-            // 
-            this.btnOK.Image = global::CoffeeStore.Properties.Resources.tick;
-            this.btnOK.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnOK.Location = new System.Drawing.Point(184, 248);
-            this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(138, 77);
-            this.btnOK.TabIndex = 6;
-            this.btnOK.Text = "Gộp";
-            this.btnOK.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.btnOK.UseVisualStyleBackColor = true;
-            this.btnOK.Click += new System.EventHandler(this.btnOK_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::CoffeeStore.Properties.Resources.down;
-            this.pictureBox1.Location = new System.Drawing.Point(248, 74);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(63, 72);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 2;
-            this.pictureBox1.TabStop = false;
             // 
             // frmMergeTable
             // 

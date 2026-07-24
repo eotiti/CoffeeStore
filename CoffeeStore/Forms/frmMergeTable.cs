@@ -22,7 +22,6 @@ namespace CoffeeStore.Forms
         public frmMergeTable(TableDTO table)
         {
             InitializeComponent();
-
             currentTable = table;
         }
         #region Current
@@ -33,10 +32,8 @@ namespace CoffeeStore.Forms
         #region LOAD
         private void LoadTables()
         {
-            List<TableDTO> tables = tableBUS.GetAllByAreaID(currentTable.AreaID);
-
+            List<TableDTO> tables = tableBUS.GetAll();
             tables = tables.Where(x => x.Status == TableStatus.Occupied && x.TableID != currentTable.TableID).ToList();
-
             cboMergeTable.DataSource = tables;
             cboMergeTable.DisplayMember = "TableName";
             cboMergeTable.ValueMember = "TableID";
@@ -45,10 +42,8 @@ namespace CoffeeStore.Forms
         private void frmMergeTable_Load(object sender, EventArgs e)
         {
             lblCurrentTable.Text = currentTable.TableName;
-
             LoadTables();
         }
-
         private void btnOK_Click(object sender, EventArgs e)
         {
             if (cboMergeTable.SelectedItem == null)
@@ -56,16 +51,12 @@ namespace CoffeeStore.Forms
                 MessageBox.Show("Vui lòng chọn bàn.");
                 return;
             }
-
             SelectedTable = (TableDTO)cboMergeTable.SelectedItem;
-
             DialogResult = DialogResult.OK;
         }
-
         private void btnCancel_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
-
         }
     }
 }

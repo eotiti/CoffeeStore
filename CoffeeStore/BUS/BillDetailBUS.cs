@@ -48,5 +48,17 @@ namespace CoffeeStore.BUS
         {
             return dal.CountByBill(billID);
         }
+        public bool MoveBillDetails(int sourceBillID, int targetBillID)
+        {
+            return dal.MoveBillDetails(sourceBillID, targetBillID);
+        }
+        public List<BillDetailDTO> GetByBillID(int billID)
+        {
+            return dal.GetByBillID(billID);
+        }
+        public bool MoveOneBillDetail(int billDetailID, int targetBillID)
+        {
+            return dal.MoveOneBillDetail(billDetailID, targetBillID);
+        }
     }
 }

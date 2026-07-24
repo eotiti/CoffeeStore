@@ -144,5 +144,73 @@ namespace CoffeeStore.DAL
                 return Convert.ToInt32(cmd.ExecuteScalar());
             }
         }
+        public bool MoveBillDetails(int sourceBillID, int targetBillID)
+        {
+
+            string sql = @"UPDATE BillDetails SET BillID = @TargetBillID WHERE BillID = @SourceBillID";
+
+            using (SqlConnection conn = GetConnection())
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@TargetBillID", targetBillID);
+                cmd.Parameters.AddWithValue("@SourceBillID", sourceBillID);
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
+        public List<BillDetailDTO> GetByBillID(int billID)
+        {
+            List<BillDetailDTO> list = new List<BillDetailDTO>();
+
+            string sql = "SELECT * FROM BillDetails WHERE BillID = @BillID";
+
+            using (SqlConnection conn = GetConnection())
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+                cmd.Parameters.AddWithValue("@BillID", billID);
+
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    BillDetailDTO detail = new BillDetailDTO();
+
+                    detail.BillDetailID = Convert.ToInt32(reader["BillDetailID"]);
+                    detail.BillID = Convert.ToInt32(reader["BillID"]);
+                    detail.FoodID = Convert.ToInt32(reader["FoodID"]);
+                    detail.Quantity = Convert.ToInt32(reader["Quantity"]);
+                    detail.UnitPrice = Convert.ToDecimal(reader["UnitPrice"]);
+                    detail.Amount = Convert.ToDecimal(reader["Amount"]);
+
+                    list.Add(detail);
+                }
+
+                reader.Close();
+            }
+
+            return list;
+        }
+        public bool MoveOneBillDetail(int billDetailID, int targetBillID)
+        {
+            string sql = @"UPDATE BillDetails
+                   SET BillID = @TargetBillID
+                   WHERE BillDetailID = @BillDetailID";
+
+            using (SqlConnection conn = GetConnection())
+            {
+                conn.Open();
+
+                SqlCommand cmd = new SqlCommand(sql, conn);
+
+                cmd.Parameters.AddWithValue("@TargetBillID", targetBillID);
+                cmd.Parameters.AddWithValue("@BillDetailID", billDetailID);
+
+                return cmd.ExecuteNonQuery() > 0;
+            }
+        }
+
     }
 }

@@ -366,9 +366,14 @@ namespace CoffeeStore.Forms
         {
             dgvBill.Columns["BillDetailID"].HeaderText = "STT";
             dgvBill.Columns["FoodName"].HeaderText = "Tên món";
-            dgvBill.Columns["Quantity"].HeaderText = "Số lượng";
+            dgvBill.Columns["FoodName"].MinimumWidth = 200;
+            dgvBill.Columns["Quantity"].HeaderText = "SL";
+            dgvBill.Columns["Quantity"].MinimumWidth = 20;
             dgvBill.Columns["UnitPrice"].HeaderText = "Đơn Giá";
+            dgvBill.Columns["Quantity"].MinimumWidth = 40;
             dgvBill.Columns["Amount"].HeaderText = "Thành tiền";
+            dgvBill.Columns["Quantity"].MinimumWidth = 40;
+
             dgvBill.Columns["UnitPrice"].DefaultCellStyle.Format = "N0";
             dgvBill.Columns["Amount"].DefaultCellStyle.Format = "N0";
             dgvBill.Columns["BillDetailID"].Visible = false;
@@ -382,6 +387,7 @@ namespace CoffeeStore.Forms
             LoadAreas();            
             cboArea.DropDownStyle = ComboBoxStyle.DropDownList;
             dgvBill.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+         
         }
         private void cboArea_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -473,8 +479,55 @@ namespace CoffeeStore.Forms
             {
                 TableDTO mergeTable = frm.SelectedTable;
 
-                MessageBox.Show("Gộp với " + mergeTable.TableName);
+                if (mergeTable.TableID == selectedTable.TableID)
+                {
+                    MessageBox.Show("Không thể gộp cùng một bàn.");
+                    return;
+                }
+                BillDTO sourceBill = billBUS.GetOpenBillByTable(selectedTable.TableID);
+                BillDTO targetBill = billBUS.GetOpenBillByTable(mergeTable.TableID);
+                if (sourceBill == null || targetBill == null)
+                {
+                    MessageBox.Show("Không tìm thấy hóa đơn.");
+                    return;
+                }
+
+                List<BillDetailDTO> sourceDetails = billDetailBUS.GetByBillID(sourceBill.BillID);
+                // Bước tiếp theo sẽ xử lý gộp bill ở đây
+                foreach (BillDetailDTO item in sourceDetails)
+                {
+                    BillDetailDTO targetItem = billDetailBUS.GetFoodInBill(targetBill.BillID, item.FoodID);
+
+                    if (targetItem != null)
+                    {
+                        int quantity = targetItem.Quantity + item.Quantity;
+                        decimal amount = quantity * targetItem.UnitPrice;
+                        billDetailBUS.UpdateQuantity( targetItem.BillDetailID, quantity, amount);
+                        billDetailBUS.Delete(item.BillDetailID);
+                    }
+                    if (targetItem == null)
+                    {
+                        MessageBox.Show("Bàn đích chưa có hóa đơn để gộp.");
+                        return;
+                    }
+                }
+                if (!billDetailBUS.MoveBillDetails(sourceBill.BillID, targetBill.BillID))
+                {
+                    MessageBox.Show("Không thể chuyển các món còn lại.");
+                    return;
+                }
+                if (!billBUS.Delete(sourceBill.BillID))
+                {
+                    MessageBox.Show("Không thể xóa Bill cũ.");
+                    return;
+                }
+                tableBUS.UpdateStatus(selectedTable.TableID, TableStatus.Empty);
+                RefreshTables();
+                selectedTable = mergeTable;
+                LoadBill(targetBill.BillID);
+                groupBox2.Text = "ĐANG CHỌN BÀN: " + mergeTable.TableName;
             }
+
         }
     }
 }
