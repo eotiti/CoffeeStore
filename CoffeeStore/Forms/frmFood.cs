@@ -19,24 +19,17 @@ namespace CoffeeStore.Forms
             InitializeComponent();
             AutoScaleMode = AutoScaleMode.Dpi;
         }
-        //============================================================
+        
         private FoodBUS foodBUS = new FoodBUS();
-
         private CategoryBUS categoryBUS = new CategoryBUS();
-
         private int selectedFoodID = 0;
         private void LoadCategories()
         {
             DataTable dt = categoryBUS.GetAll();
-
             DataView dv = dt.DefaultView;
-
             dv.RowFilter = "IsActive = true";
-
             cboCategory.DataSource = dv;
-
             cboCategory.DisplayMember = "CategoryName";
-
             cboCategory.ValueMember = "CategoryID";
         }
         private void LoadFoods()
@@ -56,28 +49,22 @@ namespace CoffeeStore.Forms
         private void ClearForm()
         {
             selectedFoodID = 0;
-
             txtFoodName.Clear();
-
             txtPrice.Clear();
-
             chkActive.Checked = true;
-
             if (cboCategory.Items.Count > 0)
             {
                 cboCategory.SelectedIndex = 0;
             }
-
             txtFoodName.Focus();
         }
-        //============================================================
+        
         private void frmFood_Load(object sender, EventArgs e)
         {
             LoadCategories();
-
             LoadFoods();
-
             chkActive.Checked = true;
+            AcceptButton = btnSave;
         }
 
         private void dgvFood_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -112,44 +99,28 @@ namespace CoffeeStore.Forms
             if (selectedFoodID == 0)
             {
                 FoodDTO food = new FoodDTO();
-
                 food.FoodName = txtFoodName.Text.Trim();
-
                 food.CategoryID = Convert.ToInt32(cboCategory.SelectedValue);
-
                 food.Price = price;
-
                 food.IsActive = chkActive.Checked;
-
                 if (foodBUS.Insert(food))
                 {
                     MessageBox.Show("Thêm món thành công");
-
                     LoadFoods();
-
                     ClearForm();
                 }
             }
             else
             {
-                FoodDTO food =
-                    foodBUS.GetByID(selectedFoodID);
-
+                FoodDTO food = foodBUS.GetByID(selectedFoodID);
                 food.FoodName = txtFoodName.Text.Trim();
-
-                food.CategoryID =
-                    Convert.ToInt32(cboCategory.SelectedValue);
-
+                food.CategoryID = Convert.ToInt32(cboCategory.SelectedValue);
                 food.Price = price;
-
                 food.IsActive = chkActive.Checked;
-
                 if (foodBUS.Update(food))
                 {
                     MessageBox.Show("Cập nhật thành công");
-
                     LoadFoods();
-
                     ClearForm();
                 }
             }

@@ -101,5 +101,15 @@ namespace CoffeeStore.Forms
             frm.Show();
             this.Hide();
         }
+
+        private void menuWarehouse_Click(object sender, EventArgs e)
+        {
+            //OpenForm(new frmMaterial());
+        }
+
+        private void menuMaterial_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmMaterial());
+        }
     }
 }

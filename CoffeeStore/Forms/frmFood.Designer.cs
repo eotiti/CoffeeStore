@@ -53,7 +53,7 @@
             this.dgvFood.RowHeadersVisible = false;
             this.dgvFood.RowHeadersWidth = 51;
             this.dgvFood.RowTemplate.Height = 24;
-            this.dgvFood.Size = new System.Drawing.Size(421, 605);
+            this.dgvFood.Size = new System.Drawing.Size(477, 605);
             this.dgvFood.TabIndex = 0;
             this.dgvFood.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvFood_CellClick);
             // 

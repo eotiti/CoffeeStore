@@ -52,6 +52,7 @@
     <Compile Include="BUS\BillDetailBUS.cs" />
     <Compile Include="BUS\CategoryBUS.cs" />
     <Compile Include="BUS\FoodBUS.cs" />
+    <Compile Include="BUS\MaterialBUS.cs" />
     <Compile Include="BUS\TableBUS.cs" />
     <Compile Include="BUS\UserBUS.cs" />
     <Compile Include="Common\CurrentUser.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="DAL\CategoryDAL.cs" />
     <Compile Include="DAL\DBConnection.cs" />
     <Compile Include="DAL\FoodDAL.cs" />
+    <Compile Include="DAL\MaterialDAL.cs" />
     <Compile Include="DAL\TableDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
     <Compile Include="DTO\AreaDTO.cs" />
@@ -68,6 +70,7 @@
     <Compile Include="DTO\BillDTO.cs" />
     <Compile Include="DTO\CategoryDTO.cs" />
     <Compile Include="DTO\FoodDTO.cs" />
+    <Compile Include="DTO\MaterialDTO.cs" />
     <Compile Include="DTO\TableDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Enums\BillStatus.cs" />
@@ -138,11 +141,11 @@
     <Compile Include="Forms\frmOrder.Designer.cs">
       <DependentUpon>frmOrder.cs</DependentUpon>
     </Compile>
-    <Compile Include="Forms\frmTable.cs">
+    <Compile Include="Forms\frmMaterial.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Forms\frmTable.Designer.cs">
-      <DependentUpon>frmTable.cs</DependentUpon>
+    <Compile Include="Forms\frmMaterial.Designer.cs">
+      <DependentUpon>frmMaterial.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\frmUser.cs">
       <SubType>Form</SubType>
@@ -175,6 +178,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmMaterial.resx">
+      <DependentUpon>frmMaterial.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmMergeTable.resx">
       <DependentUpon>frmMergeTable.cs</DependentUpon>

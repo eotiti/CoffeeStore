@@ -31,6 +31,8 @@
             this.components = new System.ComponentModel.Container();
             this.flpTable = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnMergeTable = new System.Windows.Forms.Button();
+            this.btnMoveTable = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
@@ -49,8 +51,6 @@
             this.flpCategory = new System.Windows.Forms.FlowLayoutPanel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.flpFood = new System.Windows.Forms.FlowLayoutPanel();
-            this.btnMoveTable = new System.Windows.Forms.Button();
-            this.btnMergeTable = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBill)).BeginInit();
@@ -64,7 +64,7 @@
             this.flpTable.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.flpTable.Location = new System.Drawing.Point(3, 76);
             this.flpTable.Name = "flpTable";
-            this.flpTable.Size = new System.Drawing.Size(827, 400);
+            this.flpTable.Size = new System.Drawing.Size(762, 400);
             this.flpTable.TabIndex = 0;
             // 
             // groupBox1
@@ -81,10 +81,32 @@
             this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(848, 548);
+            this.groupBox1.Size = new System.Drawing.Size(782, 548);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Bàn";
+            // 
+            // btnMergeTable
+            // 
+            this.btnMergeTable.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMergeTable.Location = new System.Drawing.Point(231, 484);
+            this.btnMergeTable.Name = "btnMergeTable";
+            this.btnMergeTable.Size = new System.Drawing.Size(149, 40);
+            this.btnMergeTable.TabIndex = 12;
+            this.btnMergeTable.Text = "Gộp bàn";
+            this.btnMergeTable.UseVisualStyleBackColor = true;
+            this.btnMergeTable.Click += new System.EventHandler(this.btnMergeTable_Click);
+            // 
+            // btnMoveTable
+            // 
+            this.btnMoveTable.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnMoveTable.Location = new System.Drawing.Point(6, 484);
+            this.btnMoveTable.Name = "btnMoveTable";
+            this.btnMoveTable.Size = new System.Drawing.Size(199, 40);
+            this.btnMoveTable.TabIndex = 11;
+            this.btnMoveTable.Text = "Chuyển bàn";
+            this.btnMoveTable.UseVisualStyleBackColor = true;
+            this.btnMoveTable.Click += new System.EventHandler(this.btnMoveTable_Click);
             // 
             // label3
             // 
@@ -125,7 +147,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(498, 41);
+            this.label1.Location = new System.Drawing.Point(433, 41);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(97, 29);
             this.label1.TabIndex = 1;
@@ -134,7 +156,7 @@
             // cboArea
             // 
             this.cboArea.FormattingEnabled = true;
-            this.cboArea.Location = new System.Drawing.Point(601, 33);
+            this.cboArea.Location = new System.Drawing.Point(536, 33);
             this.cboArea.Name = "cboArea";
             this.cboArea.Size = new System.Drawing.Size(229, 37);
             this.cboArea.TabIndex = 0;
@@ -172,9 +194,9 @@
             // btnMinus
             // 
             this.btnMinus.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMinus.Location = new System.Drawing.Point(6, 76);
+            this.btnMinus.Location = new System.Drawing.Point(6, 94);
             this.btnMinus.Name = "btnMinus";
-            this.btnMinus.Size = new System.Drawing.Size(53, 40);
+            this.btnMinus.Size = new System.Drawing.Size(64, 53);
             this.btnMinus.TabIndex = 9;
             this.btnMinus.Text = "-";
             this.btnMinus.UseVisualStyleBackColor = true;
@@ -183,9 +205,10 @@
             // btnPlus
             // 
             this.btnPlus.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPlus.Location = new System.Drawing.Point(6, 30);
+            this.btnPlus.Image = global::CoffeeStore.Properties.Resources.plus;
+            this.btnPlus.Location = new System.Drawing.Point(6, 36);
             this.btnPlus.Name = "btnPlus";
-            this.btnPlus.Size = new System.Drawing.Size(53, 40);
+            this.btnPlus.Size = new System.Drawing.Size(64, 52);
             this.btnPlus.TabIndex = 8;
             this.btnPlus.Text = "+";
             this.btnPlus.UseVisualStyleBackColor = true;
@@ -207,13 +230,13 @@
             this.dgvBill.AllowUserToDeleteRows = false;
             this.dgvBill.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvBill.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvBill.Location = new System.Drawing.Point(65, 38);
+            this.dgvBill.Location = new System.Drawing.Point(76, 38);
             this.dgvBill.Name = "dgvBill";
             this.dgvBill.ReadOnly = true;
             this.dgvBill.RowHeadersVisible = false;
             this.dgvBill.RowHeadersWidth = 51;
             this.dgvBill.RowTemplate.Height = 24;
-            this.dgvBill.Size = new System.Drawing.Size(697, 438);
+            this.dgvBill.Size = new System.Drawing.Size(686, 438);
             this.dgvBill.TabIndex = 0;
             this.dgvBill.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBill_CellClick);
             // 
@@ -234,7 +257,7 @@
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(12, 566);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(894, 373);
+            this.groupBox3.Size = new System.Drawing.Size(782, 336);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Danh mục món";
@@ -243,19 +266,18 @@
             // 
             this.flpCategory.AutoScroll = true;
             this.flpCategory.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.flpCategory.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpCategory.Location = new System.Drawing.Point(3, 30);
             this.flpCategory.Name = "flpCategory";
-            this.flpCategory.Size = new System.Drawing.Size(888, 340);
+            this.flpCategory.Size = new System.Drawing.Size(762, 295);
             this.flpCategory.TabIndex = 0;
             // 
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.flpFood);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(912, 566);
+            this.groupBox4.Location = new System.Drawing.Point(866, 566);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(716, 376);
+            this.groupBox4.Size = new System.Drawing.Size(769, 342);
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Món";
@@ -264,33 +286,10 @@
             // 
             this.flpFood.AutoScroll = true;
             this.flpFood.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.flpFood.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpFood.Location = new System.Drawing.Point(3, 30);
             this.flpFood.Name = "flpFood";
-            this.flpFood.Size = new System.Drawing.Size(710, 343);
+            this.flpFood.Size = new System.Drawing.Size(759, 295);
             this.flpFood.TabIndex = 0;
-            // 
-            // btnMoveTable
-            // 
-            this.btnMoveTable.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMoveTable.Location = new System.Drawing.Point(6, 484);
-            this.btnMoveTable.Name = "btnMoveTable";
-            this.btnMoveTable.Size = new System.Drawing.Size(199, 40);
-            this.btnMoveTable.TabIndex = 11;
-            this.btnMoveTable.Text = "Chuyển bàn";
-            this.btnMoveTable.UseVisualStyleBackColor = true;
-            this.btnMoveTable.Click += new System.EventHandler(this.btnMoveTable_Click);
-            // 
-            // btnMergeTable
-            // 
-            this.btnMergeTable.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnMergeTable.Location = new System.Drawing.Point(231, 484);
-            this.btnMergeTable.Name = "btnMergeTable";
-            this.btnMergeTable.Size = new System.Drawing.Size(149, 40);
-            this.btnMergeTable.TabIndex = 12;
-            this.btnMergeTable.Text = "Gộp bàn";
-            this.btnMergeTable.UseVisualStyleBackColor = true;
-            this.btnMergeTable.Click += new System.EventHandler(this.btnMergeTable_Click);
             // 
             // frmOrder
             // 

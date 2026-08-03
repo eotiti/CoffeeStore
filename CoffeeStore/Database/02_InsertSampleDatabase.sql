@@ -1,14 +1,15 @@
-﻿INSERT INTO Areas ( AreaName, Description) 
+﻿use CoffeeManagement
+
+INSERT INTO Areas ( AreaName, Description) 
 		 VALUES (N'Tầng 01', N'Sảnh chính' ),
 				(N'Tầng 02', N'Lầu 01-Bàn đôi-bàn nhóm' ),
 				(N'Tầng 03', N'Lầu 02 - Phòng họp' ),
 				(N'Tầng 04', N'Chỉ dành Đặc tiệc' )
-select * from Bills
-select * from BillDetails
---Bàn Tầng --
-DECLARE @AreaID INT = 1;              -- KHU VỰC (AreaID)
-DECLARE @TotalTable INT = 40;         -- SỐ LƯỢNG BÀN
-DECLARE @Prefix NVARCHAR(10) = '01';  -- Mã khu vực hiển thị (T01, T02,...)
+select * from CafeTables
+--INSERT Bàn Tầng....--
+DECLARE @AreaID INT = 4;              -- KHU VỰC (AreaID)
+DECLARE @TotalTable INT = 10;         -- SỐ LƯỢNG BÀN
+DECLARE @Prefix NVARCHAR(10) = '04';  -- Mã khu vực hiển thị (T01, T02,...)
 
 DECLARE @i INT = 1;
 
@@ -24,7 +25,6 @@ BEGIN
 
     SET @i += 1;
 END;
-
 INSERT INTO Categories(CategoryName, IsActive)
 VALUES
 (N'Cà phê',1),

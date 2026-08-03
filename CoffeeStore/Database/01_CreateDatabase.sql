@@ -137,3 +137,29 @@ CREATE TABLE BillDetails
         REFERENCES Foods(FoodID)
 );
 GO
+/*=====================================================
+    Materials
+=====================================================*/
+CREATE TABLE Materials
+(
+    MaterialID INT IDENTITY PRIMARY KEY,
+    MaterialName NVARCHAR(100) NOT NULL,
+    Unit NVARCHAR(20),
+    Quantity DECIMAL(18,2) DEFAULT 0,
+    MinQuantity DECIMAL(18,2) DEFAULT 0,
+    IsActive BIT DEFAULT 1,
+	CreatedDate DATETIME DEFAULT GETDATE(),
+    UpdatedDate DATETIME DEFAULT GETDATE()
+);
+go
+CREATE TABLE FoodRecipes
+(
+    RecipeID INT IDENTITY PRIMARY KEY,
+    FoodID INT,
+    MaterialID INT,
+    Quantity DECIMAL(18,2),
+
+    FOREIGN KEY(FoodID) REFERENCES Foods(FoodID),
+    FOREIGN KEY(MaterialID) REFERENCES Materials(MaterialID),
+	CONSTRAINT UQ_FoodRecipe UNIQUE(FoodID, MaterialID)
+);
