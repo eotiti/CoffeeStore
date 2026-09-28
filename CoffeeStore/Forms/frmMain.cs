@@ -111,5 +111,10 @@ namespace CoffeeStore.Forms
         {
             OpenForm(new frmMaterial());
         }
+
+        private void quảnLýCôngThứcToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenForm(new frmRecipe());
+        }
     }
 }

@@ -129,6 +129,7 @@ namespace CoffeeStore.Forms
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
+
             decimal quantity;
             decimal minQuantity;
             if (string.IsNullOrWhiteSpace(txtMaterialName.Text))
@@ -158,11 +159,8 @@ namespace CoffeeStore.Forms
             if (materialBUS.Update(selectedMaterial))
             {
                 MessageBox.Show("Cập nhật thành công.");
-
                 LoadMaterials();
-
                 ClearForm();
-
                 selectedMaterial = null;
             }
             else

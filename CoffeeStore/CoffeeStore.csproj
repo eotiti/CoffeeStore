@@ -52,6 +52,7 @@
     <Compile Include="BUS\BillDetailBUS.cs" />
     <Compile Include="BUS\CategoryBUS.cs" />
     <Compile Include="BUS\FoodBUS.cs" />
+    <Compile Include="BUS\FoodRecipeBUS.cs" />
     <Compile Include="BUS\MaterialBUS.cs" />
     <Compile Include="BUS\TableBUS.cs" />
     <Compile Include="BUS\UserBUS.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="DAL\CategoryDAL.cs" />
     <Compile Include="DAL\DBConnection.cs" />
     <Compile Include="DAL\FoodDAL.cs" />
+    <Compile Include="DAL\FoodRecipeDAL.cs" />
     <Compile Include="DAL\MaterialDAL.cs" />
     <Compile Include="DAL\TableDAL.cs" />
     <Compile Include="DAL\UserDAL.cs" />
@@ -70,11 +72,24 @@
     <Compile Include="DTO\BillDTO.cs" />
     <Compile Include="DTO\CategoryDTO.cs" />
     <Compile Include="DTO\FoodDTO.cs" />
+    <Compile Include="DTO\FoodRecipeDTO.cs" />
     <Compile Include="DTO\MaterialDTO.cs" />
     <Compile Include="DTO\TableDTO.cs" />
     <Compile Include="DTO\UserDTO.cs" />
     <Compile Include="Enums\BillStatus.cs" />
     <Compile Include="Enums\TableStatus.cs" />
+    <Compile Include="Forms\frmEditRecipe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmEditRecipe.Designer.cs">
+      <DependentUpon>frmEditRecipe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\frmRecipe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\frmRecipe.Designer.cs">
+      <DependentUpon>frmRecipe.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\frmCategory.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,6 +182,9 @@
     <EmbeddedResource Include="Forms\frmEditArea.resx">
       <DependentUpon>frmEditArea.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmEditRecipe.resx">
+      <DependentUpon>frmEditRecipe.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmEditTable.resx">
       <DependentUpon>frmEditTable.cs</DependentUpon>
     </EmbeddedResource>
@@ -190,6 +208,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmOrder.resx">
       <DependentUpon>frmOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\frmRecipe.resx">
+      <DependentUpon>frmRecipe.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\frmUser.resx">
       <DependentUpon>frmUser.cs</DependentUpon>

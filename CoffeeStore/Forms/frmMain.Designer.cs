@@ -37,6 +37,7 @@
             this.menuCategory = new System.Windows.Forms.ToolStripMenuItem();
             this.menuFood = new System.Windows.Forms.ToolStripMenuItem();
             this.menuUser = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuMaterial = new System.Windows.Forms.ToolStripMenuItem();
             this.toolReport = new System.Windows.Forms.ToolStripMenuItem();
             this.menuWarehouse = new System.Windows.Forms.ToolStripMenuItem();
             this.menuReport = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,7 +48,7 @@
             this.menuLogout = new System.Windows.Forms.ToolStripMenuItem();
             this.toolCurrentUser = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlMain = new System.Windows.Forms.Panel();
-            this.menuMaterial = new System.Windows.Forms.ToolStripMenuItem();
+            this.quảnLýCôngThứcToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,7 +67,7 @@
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip.Size = new System.Drawing.Size(229, 1055);
+            this.menuStrip.Size = new System.Drawing.Size(227, 1055);
             this.menuStrip.TabIndex = 0;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -103,7 +104,8 @@
             this.menuCategory,
             this.menuFood,
             this.menuUser,
-            this.menuMaterial});
+            this.menuMaterial,
+            this.quảnLýCôngThứcToolStripMenuItem});
             this.toolManager.Image = global::CoffeeStore.Properties.Resources.briefcase;
             this.toolManager.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.toolManager.Name = "toolManager";
@@ -115,32 +117,39 @@
             // 
             this.menuArea.Image = global::CoffeeStore.Properties.Resources._02_Data_Center;
             this.menuArea.Name = "menuArea";
-            this.menuArea.Size = new System.Drawing.Size(348, 46);
-            this.menuArea.Text = "Khu vực-Bàn";
+            this.menuArea.Size = new System.Drawing.Size(425, 46);
+            this.menuArea.Text = "Quản lý khu vực-bàn ăn";
             this.menuArea.Click += new System.EventHandler(this.menuArea_Click);
             // 
             // menuCategory
             // 
             this.menuCategory.Image = global::CoffeeStore.Properties.Resources._12_Investigation;
             this.menuCategory.Name = "menuCategory";
-            this.menuCategory.Size = new System.Drawing.Size(348, 46);
-            this.menuCategory.Text = "Category";
+            this.menuCategory.Size = new System.Drawing.Size(425, 46);
+            this.menuCategory.Text = "Quản lý danh mục";
             this.menuCategory.Click += new System.EventHandler(this.menuCategory_Click);
             // 
             // menuFood
             // 
             this.menuFood.Image = global::CoffeeStore.Properties.Resources._17_Reusable_Bottle_;
             this.menuFood.Name = "menuFood";
-            this.menuFood.Size = new System.Drawing.Size(348, 46);
-            this.menuFood.Text = "Food-Drink";
+            this.menuFood.Size = new System.Drawing.Size(425, 46);
+            this.menuFood.Text = "Quản lý món";
             this.menuFood.Click += new System.EventHandler(this.menuFood_Click);
             // 
             // menuUser
             // 
             this.menuUser.Name = "menuUser";
-            this.menuUser.Size = new System.Drawing.Size(348, 46);
+            this.menuUser.Size = new System.Drawing.Size(425, 46);
             this.menuUser.Text = "Quản lý nhân viên";
             this.menuUser.Click += new System.EventHandler(this.menuUser_Click);
+            // 
+            // menuMaterial
+            // 
+            this.menuMaterial.Name = "menuMaterial";
+            this.menuMaterial.Size = new System.Drawing.Size(425, 46);
+            this.menuMaterial.Text = "Quản lý Nguyên Liệu";
+            this.menuMaterial.Click += new System.EventHandler(this.menuMaterial_Click);
             // 
             // toolReport
             // 
@@ -230,12 +239,12 @@
             this.pnlMain.Size = new System.Drawing.Size(1537, 1017);
             this.pnlMain.TabIndex = 4;
             // 
-            // menuMaterial
+            // quảnLýCôngThứcToolStripMenuItem
             // 
-            this.menuMaterial.Name = "menuMaterial";
-            this.menuMaterial.Size = new System.Drawing.Size(348, 46);
-            this.menuMaterial.Text = "Nguyên Liệu";
-            this.menuMaterial.Click += new System.EventHandler(this.menuMaterial_Click);
+            this.quảnLýCôngThứcToolStripMenuItem.Name = "quảnLýCôngThứcToolStripMenuItem";
+            this.quảnLýCôngThứcToolStripMenuItem.Size = new System.Drawing.Size(425, 46);
+            this.quảnLýCôngThứcToolStripMenuItem.Text = "Quản lý công thức";
+            this.quảnLýCôngThứcToolStripMenuItem.Click += new System.EventHandler(this.quảnLýCôngThứcToolStripMenuItem_Click);
             // 
             // frmMain
             // 
@@ -282,5 +291,6 @@
         private System.Windows.Forms.ToolStripMenuItem toolCurrentUser;
         private System.Windows.Forms.ToolStripMenuItem menuUser;
         private System.Windows.Forms.ToolStripMenuItem menuMaterial;
+        private System.Windows.Forms.ToolStripMenuItem quảnLýCôngThứcToolStripMenuItem;
     }
 }
