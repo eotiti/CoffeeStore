@@ -1,13 +1,6 @@
 ﻿using CoffeeStore.BUS;
 using CoffeeStore.DTO;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CoffeeStore.Forms
@@ -18,7 +11,7 @@ namespace CoffeeStore.Forms
         {
             InitializeComponent();
         }
-        
+
         #region VARIABLES
         private int foodID;
         private readonly MaterialBUS materialBUS = new MaterialBUS();
@@ -47,7 +40,9 @@ namespace CoffeeStore.Forms
                 return;
             }
 
-            if (!decimal.TryParse(txtQuantity.Text, out var quantity))
+            decimal quantity;
+
+            if (!decimal.TryParse(txtQuantity.Text, out quantity))
             {
                 MessageBox.Show("Định lượng không hợp lệ.");
                 return;
@@ -59,21 +54,20 @@ namespace CoffeeStore.Forms
                 return;
             }
 
-            var recipe = new FoodRecipeDTO
-            {
-                FoodID = foodID,
-                Quantity = quantity
-            };
+            int materialID = Convert.ToInt32(cboMaterial.SelectedValue);
 
-            if (cboMaterial.SelectedValue is int materialId)
+            // Kiểm tra nguyên liệu đã có trong công thức chưa
+            if (foodRecipeBUS.Exists(foodID, materialID))
             {
-                recipe.MaterialID = materialId;
+                MessageBox.Show("Nguyên liệu này đã có trong công thức.");
+                return;
             }
-            else
-            {
-                // Fallback for unexpected value types
-            recipe.MaterialID = Convert.ToInt32(cboMaterial.SelectedValue);
-            }
+
+            FoodRecipeDTO recipe = new FoodRecipeDTO();
+
+            recipe.FoodID = foodID;
+            recipe.MaterialID = materialID;
+            recipe.Quantity = quantity;
 
             if (foodRecipeBUS.Insert(recipe))
             {
